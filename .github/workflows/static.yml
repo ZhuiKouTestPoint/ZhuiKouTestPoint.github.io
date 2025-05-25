@@ -37,7 +37,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: github-pages
-          path: ./build  # 例如 React/Vue 是 build 或 dist，Jekyll 是 _site，纯静态可用 ./
+          path: ./  # 例如 React/Vue 是 build 或 dist，Jekyll 是 _site，纯静态可用 ./
 
       - name: Deploy to GitHub Pages
         id: deployment
