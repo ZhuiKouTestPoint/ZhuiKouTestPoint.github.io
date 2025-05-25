@@ -15,23 +15,34 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v3
+
+      # 如有需要，安装依赖
+      # - name: Install dependencies
+      #   run: npm ci  # 如果是 Node.js 项目
+
+      # 构建静态网站（根据你的项目类型修改命令）
+      # - name: Build
+      #   run: npm run build
+
       - name: Setup Pages
         uses: actions/configure-pages@v3
+
+      # 上传构建产物（将 build 或 dist 或 _site 替换为你实际的输出目录）
       - name: Upload artifact
-        uses: actions/upload-artifact@v4.6.2
+        uses: actions/upload-artifact@v4
         with:
-          # Specify the path to upload
-          path: '.'
+          name: github-pages
+          path: ./build  # 例如 React/Vue 是 build 或 dist，Jekyll 是 _site，纯静态可用 ./
+
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4.0.5
-      - name: HTML Preview
-        uses: pavi2410/html-preview-action@v2
+        uses: actions/deploy-pages@v4
+
+      # 可选：预览 HTML
+      # - name: HTML Preview
+      #   uses: pavi2410/html-preview-action@v2
