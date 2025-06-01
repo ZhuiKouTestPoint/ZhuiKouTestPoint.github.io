@@ -1,166 +1,159 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
-    <meta charset="utf-8" />
-    <title>创思科技中文官网</title>
-    <link rel="shortcut icon" href="../img/websiteicon.jpg" type="image/x-icon">
-    <link rel="stylesheet" href="../css/normalpage.css" type="text/css">
+    <meta charset="utf-8">
+    <title>选择语言 - Chancy Tech</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <style>
         body {
             margin: 0;
             padding: 0;
-            font-family: "Segoe UI", "微软雅黑", Arial, sans-serif;
-            color: #222;
             min-height: 100vh;
-            position: relative;
-            overflow-x: hidden;
-            background: #f7faff;
-        }
-        video {
-            position: fixed;
-            top: 0;
-            left: 0;
-            min-width: 100vw;
-            min-height: 100vh;
-            width: 100vw;
-            height: 100vh;
-            object-fit: cover;
-            z-index: -1;
-            filter: grayscale(10%);
-            opacity: 0.45;
-        }
-        .main-container {
+            background: linear-gradient(120deg, #4f8cff 0%, #38f9d7 100%);
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
+            font-family: "Segoe UI", "微软雅黑", Arial, sans-serif;
+        }
+        .lang-container {
+            background: rgba(255,255,255,0.95);
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+            padding: 40px 32px 32px 32px;
             text-align: center;
-            position: relative;
-            z-index: 1;
+            min-width: 320px;
         }
-        .logo {
-            width: 120px;
-            height: 120px;
-            border-radius: 20px;
+        .lang-container h1 {
             margin-bottom: 28px;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.12);
-            background: #fff;
-            object-fit: contain;
-        }
-        .title h1 {
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin: 0 0 10px 0;
-            letter-spacing: 2px;
             color: #1a237e;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            font-size: 2rem;
+            letter-spacing: 2px;
         }
-        .title h2 {
-            font-size: 1.2rem;
-            margin: 0 0 28px 0;
-            color: #3a3a3a;
-            font-weight: 400;
-            text-shadow: 0 1px 4px rgba(0,0,0,0.06);
-        }
-        .actions {
+        .lang-btns {
             display: flex;
-            flex-direction: row;
-            gap: 20px;
-            justify-content: center;
-            margin-bottom: 36px;
+            flex-direction: column;
+            gap: 18px;
+            margin-bottom: 18px;
         }
-        .actions a {
-            text-decoration: none;
-        }
-        .actions .btn {
-            font-size: 1.1rem;
+        .lang-btns button {
+            font-size: 1.2rem;
             color: #fff;
             background: linear-gradient(90deg, #4f8cff 60%, #3a6fd8 100%);
             border: none;
             border-radius: 8px;
-            padding: 12px 36px;
+            padding: 12px 0;
             cursor: pointer;
             transition: background 0.2s, transform 0.2s;
-            box-shadow: 0 2px 8px rgba(79,140,255,0.10);
-            font-weight: 500;
-            letter-spacing: 1px;
+            box-shadow: 0 2px 8px rgba(79,140,255,0.12);
         }
-        .actions .btn:hover {
+        .lang-btns button:hover {
             background: linear-gradient(90deg, #3a6fd8 60%, #4f8cff 100%);
             transform: translateY(-2px) scale(1.04);
         }
-        .corp {
-            position: fixed;
-            bottom: 18px;
-            left: 0;
-            width: 100vw;
-            text-align: center;
-            color: #888;
-            font-size: 0.95rem;
-            letter-spacing: 1px;
-            z-index: 2;
-            text-shadow: 0 1px 4px rgba(0,0,0,0.08);
+        .back-link {
+            display: block;
+            margin-top: 18px;
+            color: #4f8cff;
+            text-decoration: underline;
+            font-size: 1rem;
         }
-        @media (max-width: 600px) {
-            .main-container {
-                padding: 24px 8px;
+        @media (max-width: 500px) {
+            .lang-container {
+                min-width: 0;
+                padding: 24px 8vw 18px 8vw;
             }
-            .logo {
-                width: 80px;
-                height: 80px;
+            .lang-container h1 {
+                font-size: 1.2rem;
             }
-            .title h1 {
-                font-size: 1.3rem;
-            }
-            .title h2 {
-                font-size: 1rem;
-            }
-            .actions .btn {
-                padding: 10px 18px;
-                font-size: 1rem;
-            }
+        }
+        #cookie-tip {
+            display: none;
+            position: fixed;
+            bottom: 38px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(30,30,30,0.95);
+            color: #fff;
+            padding: 16px 28px;
+            border-radius: 10px;
+            z-index: 99;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+            font-size: 1rem;
+        }
+        #cookie-accept {
+            margin-left: 18px;
+            padding: 6px 18px;
+            border: none;
+            border-radius: 6px;
+            background: #4f8cff;
+            color: #fff;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    
-    <video src="https://tc.qdqqd.com/GmL6Cg.mp4" loop autoplay muted playsinline></video>
-    <div class="main-container">
-        <img class="logo" src="https://file.zhuyitai.com/feedback/202505/26/c5829bf7931246dd1bc6da2417c59eb4.png" alt="ZhuiKou Logo" />
-        <div class="title">
-            <h1>欢迎访问创思科技官网「Chancy Tech」</h1>
-            <h2>网站尚在维护之中</h2>
+    <div class="lang-container">
+        <h1>请选择您的语言<br>Select your language</h1>
+        <div class="lang-btns">
+            <button onclick="chooseLang('zh-cn')">简体中文</button>
+            <button onclick="chooseLang('en-us')">English</button>
         </div>
-        <div class="actions">
-            <a href="./login/"><button class="btn">登录</button></a>
-            <a href="../"><button class="btn" id="back-home-btn" style="background:linear-gradient(90deg,#43e97b 60%,#38f9d7 100%);">返回首页</button></a>
-            <a href="/languagechoose.html?redirect=" id="lang-set-link"><button class="btn" style="background:linear-gradient(90deg,#ffb347 60%,#ffcc33 100%);color:#222;">修改语言设置</button></a>
-        </div>
+        <a class="back-link" href="/">返回首页 / Back to Home</a>
     </div>
-    <div class="corp">
-        ©2022-2025 创思科技
+    <div id="cookie-tip">
+        本网站使用Cookie以提升用户体验。
+        <button id="cookie-accept">我知道了</button>
     </div>
     <script>
-    // ...cookie提示相关代码...
-
-    // 动态设置“修改语言设置”链接和“返回首页”链接
-    document.addEventListener('DOMContentLoaded', function() {
-        // 获取当前完整URL
-        var currentUrl = window.location.pathname + window.location.search + window.location.hash;
-        // 设置“修改语言设置”按钮的跳转链接，带redirect参数
-        var langSetLink = document.getElementById('lang-set-link');
-        if (langSetLink) {
-            langSetLink.href = "/languagechoose.html?redirect=" + encodeURIComponent(currentUrl);
+        // 选择语言并设置cookie，跳转
+        function chooseLang(lang) {
+            // 设置语言cookie
+            document.cookie = "lang=" + lang + ";path=/;max-age=31536000";
+            // 设置已同意cookie提示
+            document.cookie = "cookieTip=1;path=/;max-age=31536000";
+            // 获取redirect参数
+            var params = new URLSearchParams(window.location.search);
+            var redirect = params.get('redirect');
+            // 只允许跳转到本站内安全路径，防止未验证重定向漏洞
+            if (redirect && /^(\/(?!\/)|\.\/|\.\.\/)/.test(decodeURIComponent(redirect))) {
+                window.location.href = decodeURIComponent(redirect);
+            } else if (lang === 'zh-cn') {
+                window.location.href = '/zh-cn/';
+            } else if (lang === 'en-us') {
+                window.location.href = '/en-us/';
+            }
         }
-        // 设置“返回首页”按钮跳转到redirect参数（如果有）
-        var params = new URLSearchParams(window.location.search);
-        var redirect = params.get('redirect');
-        var backHomeBtn = document.getElementById('back-home-btn');
-        if (redirect && backHomeBtn) {
-            backHomeBtn.href = redirect;
-        }
-    });
-</script>
+        // 设置“返回首页”按钮
+        document.addEventListener('DOMContentLoaded', function() {
+            // cookie提示
+            function getCookie(name) {
+                const value = "; " + document.cookie;
+                const parts = value.split("; " + name + "=");
+                if (parts.length === 2) return parts.pop().split(";").shift();
+                return null;
+            }
+            function showCookieTipIfNeeded() {
+                if (!getCookie('cookieTip')) {
+                    document.getElementById('cookie-tip').style.display = 'block';
+                }
+            }
+            showCookieTipIfNeeded();
+            var acceptBtn = document.getElementById('cookie-accept');
+            if (acceptBtn) {
+                acceptBtn.onclick = function() {
+                    document.cookie = "cookieTip=1;path=/;max-age=31536000";
+                    document.getElementById('cookie-tip').style.display = 'none';
+                };
+            }
+            // 设置返回链接
+            var params = new URLSearchParams(window.location.search);
+            var redirect = params.get('redirect');
+            var backLink = document.querySelector('.back-link');
+            // 只允许本站内安全路径
+            if (redirect && backLink && /^(\/(?!\/)|\.\/|\.\.\/)/.test(decodeURIComponent(redirect))) {
+                backLink.href = decodeURIComponent(redirect);
+            }
+        });
+    </script>
 </body>
 </html>
