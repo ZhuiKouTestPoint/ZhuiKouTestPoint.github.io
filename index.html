@@ -100,6 +100,29 @@
             z-index: 2;
             text-shadow: 0 1px 4px rgba(0,0,0,0.12);
         }
+        #cookie-tip {
+            display: none;
+            position: fixed;
+            bottom: 38px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(30,30,30,0.95);
+            color: #fff;
+            padding: 16px 28px;
+            border-radius: 10px;
+            z-index: 99;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+            font-size: 1rem;
+        }
+        #cookie-accept {
+            margin-left: 18px;
+            padding: 6px 18px;
+            border: none;
+            border-radius: 6px;
+            background: #4f8cff;
+            color: #fff;
+            cursor: pointer;
+        }
         @media (max-width: 600px) {
             .main-container {
                 padding: 24px 8px;
@@ -126,12 +149,58 @@
             <p>Welcome to Chancy Tech Official Website</p>
         </div>
         <div class="langchoose">
-            <a href="./zh-cn/"><button lang="zh-cn">中文</button></a>
-            <a href="./en-us/"><button lang="en-us">English</button></a>
+            <a href="./zh-cn/"><button lang="zh-cn" onclick="setLang('zh-cn')">中文</button></a>
+            <a href="./en-us/"><button lang="en-us" onclick="setLang('en-us')">English</button></a>
         </div>
     </div>
     <div class="corp">
         ©2022-2025 创思科技
     </div>
+    <div id="cookie-tip">
+        本网站使用Cookie以提升用户体验。
+        <button id="cookie-accept">我知道了</button>
+    </div>
+    <script>
+        // 设置cookie
+        function setLang(lang) {
+            document.cookie = "lang=" + lang + ";path=/;max-age=31536000";
+        }
+        // 读取cookie
+        function getCookie(name) {
+            const value = "; " + document.cookie;
+            const parts = value.split("; " + name + "=");
+            if (parts.length === 2) return parts.pop().split(";").shift();
+            return null;
+        }
+        // 自动跳转
+        (function() {
+            const lang = getCookie('lang');
+            if (lang === 'zh-cn') {
+                window.location.href = './zh-cn/';
+            } else if (lang === 'en-us') {
+                window.location.href = './en-us/';
+            }
+        })();
+
+        // Cookie 提示
+        function setCookieTipAccepted() {
+            document.cookie = "cookieTip=1;path=/;max-age=31536000";
+        }
+        function showCookieTipIfNeeded() {
+            if (!getCookie('cookieTip')) {
+                document.getElementById('cookie-tip').style.display = 'block';
+            }
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            showCookieTipIfNeeded();
+            var acceptBtn = document.getElementById('cookie-accept');
+            if (acceptBtn) {
+                acceptBtn.onclick = function() {
+                    setCookieTipAccepted();
+                    document.getElementById('cookie-tip').style.display = 'none';
+                };
+            }
+        });
+    </script>
 </body>
 </html>
