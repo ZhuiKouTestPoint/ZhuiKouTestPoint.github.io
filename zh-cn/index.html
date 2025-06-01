@@ -124,6 +124,36 @@
     </style>
 </head>
 <body>
+    <div id="cookie-tip" style="display:none;position:fixed;bottom:38px;left:50%;transform:translateX(-50%);background:rgba(30,30,30,0.95);color:#fff;padding:16px 28px;border-radius:10px;z-index:99;box-shadow:0 2px 12px rgba(0,0,0,0.18);font-size:1rem;">
+        本网站使用Cookie以提升用户体验。
+        <button id="cookie-accept" style="margin-left:18px;padding:6px 18px;border:none;border-radius:6px;background:#4f8cff;color:#fff;cursor:pointer;">我知道了</button>
+    </div>
+    <script>
+        function setCookieTipAccepted() {
+            document.cookie = "cookieTip=1;path=/;max-age=31536000";
+        }
+        function getCookie(name) {
+            const value = "; " + document.cookie;
+            const parts = value.split("; " + name + "=");
+            if (parts.length === 2) return parts.pop().split(";").shift();
+            return null;
+        }
+        function showCookieTipIfNeeded() {
+            if (!getCookie('cookieTip')) {
+                document.getElementById('cookie-tip').style.display = 'block';
+            }
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            showCookieTipIfNeeded();
+            var acceptBtn = document.getElementById('cookie-accept');
+            if (acceptBtn) {
+                acceptBtn.onclick = function() {
+                    setCookieTipAccepted();
+                    document.getElementById('cookie-tip').style.display = 'none';
+                };
+            }
+        });
+    </script>
     <video src="https://tc.qdqqd.com/GmL6Cg.mp4" loop autoplay muted playsinline></video>
     <div class="main-container">
         <img class="logo" src="https://file.zhuyitai.com/feedback/202505/26/c5829bf7931246dd1bc6da2417c59eb4.png" alt="ZhuiKou Logo" />
@@ -134,6 +164,7 @@
         <div class="actions">
             <a href="./login/"><button class="btn">登录</button></a>
             <a href="../"><button class="btn" style="background:linear-gradient(90deg,#43e97b 60%,#38f9d7 100%);">返回首页</button></a>
+            <a href="/"><button class="btn" style="background:linear-gradient(90deg,#ffb347 60%,#ffcc33 100%);color:#222;">修改语言设置</button></a>
         </div>
     </div>
     <div class="corp">
