@@ -3,88 +3,95 @@
 <head>
     <meta charset="utf-8" />
     <title>创思科技官网「Chancy Tech」</title>
-    <link rel="shortcut icon" href="resources/img/websiteicon.jpg" type="image/x-icon">
+    <link rel="shortcut icon" href="resources/img/websiteicon.png" type="image/x-icon">
     <link rel="stylesheet" href="css/normalpage.css" type="text/css">
     <style>
         body {
             margin: 0;
             padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(120deg, #4f8cff 0%, #38f9d7 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-family: "Segoe UI", "微软雅黑", Arial, sans-serif;
-            color: #fff;
-            min-height: 100vh;
-            position: relative;
-            overflow-x: hidden;
         }
-        video {
-            position: fixed;
-            top: 0;
-            left: 0;
-            min-width: 100vw;
-            min-height: 100vh;
-            width: 100vw;
-            height: 100vh;
-            object-fit: cover;
-            z-index: -1;
-            filter: grayscale(20%);
-            opacity: 0.5;
-        }
-        .main-container {
+        .main-content {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
-            text-align: center;
-            position: relative;
-            z-index: 1;
+            min-width: 340px;
+            width: 100%;
+            max-width: 420px;
         }
-        .logo {
-            width: 160px;
-            height: 160px;
-            border-radius: 24px;
-            margin-bottom: 32px;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+        .logo-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+        .logo-area img {
+            width: 100%;
+            max-width: 240px;
+            aspect-ratio: 3/1;
+            height: auto;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.13);
             background: #fff;
             object-fit: contain;
+            margin-bottom: 10px;
+            transition: transform 0.2s;
+            display: block;
         }
-        .title h1 {
-            font-size: 2.8rem;
-            font-weight: 700;
-            margin: 0 0 12px 0;
+        .logo-area img:hover {
+            transform: scale(1.08) rotate(-2deg);
+        }
+        .main-container {
+            background: rgba(255,255,255,0.97);
+            border-radius: 20px;
+            box-shadow: 0 6px 32px rgba(0,0,0,0.13);
+            padding: 44px 32px 32px 32px;
+            text-align: center;
+            min-width: 0;
+            width: 100%;
+        }
+        .main-container h1 {
+            margin-bottom: 18px;
+            color: #1a237e;
+            font-size: 2rem;
             letter-spacing: 2px;
-            color: #fff;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.18);
         }
-        .title p {
-            font-size: 1.2rem;
-            margin: 0 0 36px 0;
-            color: #e0e0e0;
-            text-shadow: 0 1px 4px rgba(0,0,0,0.12);
+        .main-container p {
+            font-size: 1.1rem;
+            margin: 0 0 28px 0;
+            color: #3a3a3a;
+            font-weight: 400;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.06);
         }
         .langchoose {
             display: flex;
             flex-direction: column;
             gap: 18px;
             align-items: center;
-            background: rgba(255,255,255,0.12);
-            border-radius: 18px;
-            padding: 32px 24px;
-            box-shadow: 0 2px 16px rgba(0,0,0,0.08);
-            margin-bottom: 40px;
+            margin-bottom: 18px;
         }
-        .langchoose button {
-            font-size: 1.3rem;
+        .btn {
+            font-size: 1.2rem;
             color: #fff;
-            height: 48px;
-            width: 140px;
             background: linear-gradient(90deg, #4f8cff 60%, #3a6fd8 100%);
             border: none;
             border-radius: 8px;
+            padding: 14px 0;
+            width: 140px;
             cursor: pointer;
             transition: background 0.2s, transform 0.2s;
             box-shadow: 0 2px 8px rgba(79,140,255,0.12);
         }
-        .langchoose button:hover {
+        .btn-lang {
+            background: linear-gradient(90deg,#43e97b 60%,#38f9d7 100%);
+        }
+        .btn:hover {
             background: linear-gradient(90deg, #3a6fd8 60%, #4f8cff 100%);
             transform: translateY(-2px) scale(1.04);
         }
@@ -94,11 +101,11 @@
             left: 0;
             width: 100vw;
             text-align: center;
-            color: #e0e0e0;
+            color: #888;
             font-size: 0.95rem;
             letter-spacing: 1px;
             z-index: 2;
-            text-shadow: 0 1px 4px rgba(0,0,0,0.12);
+            text-shadow: 0 1px 4px rgba(0,0,0,0.08);
         }
         #cookie-tip {
             display: none;
@@ -124,33 +131,36 @@
             cursor: pointer;
         }
         @media (max-width: 600px) {
+            .main-content {
+                min-width: 0;
+                max-width: 98vw;
+            }
             .main-container {
-                padding: 24px 8px;
+                padding: 24px 4vw 18px 4vw;
             }
-            .logo {
-                width: 100px;
-                height: 100px;
+            .main-container h1 {
+                font-size: 1.2rem;
             }
-            .title h1 {
-                font-size: 1.5rem;
-            }
-            .langchoose {
-                padding: 18px 8px;
+            .logo-area img {
+                max-width: 90vw;
+                aspect-ratio: 3/1;
+                height: auto;
             }
         }
     </style>
 </head>
 <body>
-    <video src="https://tc.qdqqd.com/GmL6Cg.mp4" loop autoplay muted playsinline></video>
-    <div class="main-container">
-        <img class="logo" src="resources/img/websiteicon.jpg" alt="Chancy Tech Logo" />
-        <div class="title">
+    <div class="main-content">
+        <div class="logo-area">
+            <img src="resources/img/websiteicon.png" alt="Chancy Tech Logo" />
+        </div>
+        <div class="main-container">
             <h1>欢迎来到创思科技官网</h1>
             <p>Welcome to Chancy Tech Official Website</p>
-        </div>
-        <div class="langchoose">
-            <a href="./zh-cn/"><button lang="zh-cn" onclick="setLang('zh-cn')">中文</button></a>
-            <a href="./en-us/"><button lang="en-us" onclick="setLang('en-us')">English</button></a>
+            <div class="langchoose">
+                <a href="./zh-cn/"><button lang="zh-cn" class="btn">中文</button></a>
+                <a href="./en-us/"><button lang="en-us" class="btn btn-lang">English</button></a>
+            </div>
         </div>
     </div>
     <div class="corp">

@@ -3,32 +3,159 @@
 	<head>
 		<meta charset="utf-8">
 		<title>缀扣信息登录</title>
-		<link rel="shortcut icon" href="../../resources/img/websiteicon.jpg" type="image/x-icon">
+		<link rel="shortcut icon" href="../../resources/img/websiteicon.png" type="image/x-icon">
 		<link rel="stylesheet" href="../css/normalpage.css" type="text/css">
 		<link rel="stylesheet" href="signin.css" type="text/css">
 		<script type="text/javascript" src="signin.js"></script>
 	</head>
-	<body style="background-image: url('../../resources/img/loginbackground.jpg');">
-		<H1>请登录您的账号</H1>
-		<div>
-			<form action="../adminpanel/index.html">
-				<h1 style="color: azure;">缀扣信息网站管理系统</h1>
-				<div class="inputBox">
-					<div class="inputText">
-						<span class="iconfont icon-yonghu"></span>
-						<input type="text" name="uname" placeholder="Username" id="username" />
-					</div>
-					<div class="inputText">
-						<span class="iconfont icon-mima"></span>
-						<input type="password" placeholder="Password" id="password" />
-					</div>
-					<input class="inputButton" type="submit" onclick="judge()" value="登录">
-					<p>登录即代表您同意我们的
-						<a href="../agreements/serviceagreement/index.html">服务条款</a>
-						及<a href="../agreements/secretagreement/index.html">隐私协议</a></p>
-					<p>© 2023 JQ Tech 版权所有</p>
-				</div>
-			</form>
-		</div>
+	<body>
+    <div class="main-content">
+        <div class="logo-area">
+            <img src="../../resources/img/websiteicon.png" alt="Chancy Tech Logo" />
+        </div>
+        <div class="main-container">
+            <h1>请登录您的账号</h1>
+            <form action="../adminpanel/index.html">
+                <h2 style="color: #1a237e;">缀扣信息网站管理系统</h2>
+                <div class="inputBox">
+                    <div class="inputText">
+                        <span class="iconfont icon-yonghu"></span>
+                        <input type="text" name="uname" placeholder="Username" id="username" />
+                    </div>
+                    <div class="inputText">
+                        <span class="iconfont icon-mima"></span>
+                        <input type="password" placeholder="Password" id="password" />
+                    </div>
+                    <input class="inputButton btn" type="submit" onclick="judge()" value="登录">
+                    <p>登录即代表您同意我们的
+                        <a href="../agreements/serviceagreement/index.html">服务条款</a>
+                        及<a href="../agreements/secretagreement/index.html">隐私协议</a></p>
+                    <p>© 2023 JQ Tech 版权所有</p>
+                </div>
+            </form>
+        </div>
+    </div>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(120deg, #4f8cff 0%, #38f9d7 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: "Segoe UI", "微软雅黑", Arial, sans-serif;
+        }
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 340px;
+            width: 100%;
+            max-width: 420px;
+        }
+        .logo-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+        .logo-area img {
+            width: 100%;
+            max-width: 240px;
+            aspect-ratio: 3/1;
+            height: auto;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+            background: #fff;
+            object-fit: contain;
+            margin-bottom: 10px;
+            transition: transform 0.2s;
+            display: block;
+        }
+        .logo-area img:hover {
+            transform: scale(1.08) rotate(-2deg);
+        }
+        .main-container {
+            background: rgba(255,255,255,0.97);
+            border-radius: 20px;
+            box-shadow: 0 6px 32px rgba(0,0,0,0.13);
+            padding: 44px 32px 32px 32px;
+            text-align: center;
+            min-width: 0;
+            width: 100%;
+        }
+        .main-container h1 {
+            margin-bottom: 18px;
+            color: #1a237e;
+            font-size: 2rem;
+            letter-spacing: 2px;
+        }
+        .main-container h2 {
+            font-size: 1.1rem;
+            margin: 0 0 28px 0;
+            color: #3a3a3a;
+            font-weight: 400;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        }
+        .inputBox {
+            margin-bottom: 18px;
+        }
+        .inputText {
+            margin-bottom: 12px;
+        }
+        .inputText input {
+            background-color: #fff;
+            color: #222;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            outline: none;
+            text-align: center;
+            height: 44px;
+            width: 220px;
+            margin: 0 5px;
+            font-size: 1rem;
+            transition: box-shadow 0.2s;
+        }
+        .inputText input:focus {
+            box-shadow: 0 2px 8px rgba(79,140,255,0.18);
+            border-color: #4f8cff;
+        }
+        .inputButton.btn {
+            background: linear-gradient(90deg, #4f8cff 60%, #3a6fd8 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 0;
+            width: 100%;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.2s, transform 0.2s;
+            box-shadow: 0 2px 8px rgba(79,140,255,0.12);
+        }
+        .inputButton.btn:hover {
+            background: linear-gradient(90deg, #3a6fd8 60%, #4f8cff 100%);
+            transform: translateY(-2px) scale(1.04);
+        }
+        @media (max-width: 600px) {
+            .main-content {
+                min-width: 0;
+                max-width: 98vw;
+            }
+            .main-container {
+                padding: 24px 4vw 18px 4vw;
+            }
+            .main-container h1 {
+                font-size: 1.2rem;
+            }
+            .logo-area img {
+                max-width: 90vw;
+                aspect-ratio: 3/1;
+                height: auto;
+            }
+        }
+    </style>
 	</body>
 </html>

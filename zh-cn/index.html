@@ -15,35 +15,54 @@
             justify-content: center;
             font-family: "Segoe UI", "微软雅黑", Arial, sans-serif;
         }
-        .main-container {
+        .main-content {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
-            text-align: center;
-            position: relative;
-            z-index: 1;
+            min-width: 340px;
+            width: 100%;
+            max-width: 420px;
         }
-        .logo {
-            width: 120px;
-            height: 120px;
-            border-radius: 20px;
-            margin-bottom: 28px;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+        .logo-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+        .logo-area img {
+            width: 100%;
+            max-width: 240px;
+            aspect-ratio: 3/1;
+            height: auto;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.13);
             background: #fff;
             object-fit: contain;
+            margin-bottom: 10px;
+            transition: transform 0.2s;
+            display: block;
         }
-        .title h1 {
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin: 0 0 10px 0;
-            letter-spacing: 2px;
+        .logo-area img:hover {
+            transform: scale(1.08) rotate(-2deg);
+        }
+        .main-container {
+            background: rgba(255,255,255,0.97);
+            border-radius: 20px;
+            box-shadow: 0 6px 32px rgba(0,0,0,0.13);
+            padding: 44px 32px 32px 32px;
+            text-align: center;
+            min-width: 0;
+            width: 100%;
+        }
+        .main-container h1 {
+            margin-bottom: 18px;
             color: #1a237e;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            font-size: 2rem;
+            letter-spacing: 2px;
         }
-        .title h2 {
-            font-size: 1.2rem;
+        .main-container h2 {
+            font-size: 1.1rem;
             margin: 0 0 28px 0;
             color: #3a3a3a;
             font-weight: 400;
@@ -56,32 +75,29 @@
             justify-content: center;
             margin-bottom: 36px;
         }
-        .actions a {
-            text-decoration: none;
-        }
-        .actions .btn {
+        .btn {
             font-size: 1.1rem;
             color: #fff;
             background: linear-gradient(90deg, #4f8cff 60%, #3a6fd8 100%);
             border: none;
             border-radius: 8px;
-            padding: 12px 36px;
+            padding: 14px 36px;
             cursor: pointer;
             transition: background 0.2s, transform 0.2s;
-            box-shadow: 0 2px 8px rgba(79,140,255,0.10);
+            box-shadow: 0 2px 8px rgba(79,140,255,0.12);
             font-weight: 500;
             letter-spacing: 1px;
         }
-        .actions .btn:hover {
-            background: linear-gradient(90deg, #3a6fd8 60%, #4f8cff 100%);
-            transform: translateY(-2px) scale(1.04);
+        .btn-lang {
+            background: linear-gradient(90deg,#43e97b 60%,#38f9d7 100%);
         }
-        .actions .btn-blog {
+        .btn-blog {
             background: linear-gradient(90deg,#ffb347 60%,#ffcc33 100%);
             color: #222;
         }
-        .actions .btn-lang {
-            background: linear-gradient(90deg,#43e97b 60%,#38f9d7 100%);
+        .btn:hover {
+            background: linear-gradient(90deg, #3a6fd8 60%, #4f8cff 100%);
+            transform: translateY(-2px) scale(1.04);
         }
         .corp {
             position: fixed;
@@ -118,74 +134,38 @@
             color: #fff;
             cursor: pointer;
         }
-        #mute-btn {
-            position: fixed;
-            top: 18px;
-            right: 28px;
-            z-index: 2001;
-            background: rgba(255,255,255,0.85);
-            border: none;
-            border-radius: 50%;
-            width: 38px;
-            height: 38px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.2s;
-        }
-        #mute-btn:hover {
-            background: #e3e3e3;
-        }
-        #mute-btn svg {
-            width: 22px;
-            height: 22px;
-            fill: #4f8cff;
-        }
         @media (max-width: 600px) {
+            .main-content {
+                min-width: 0;
+                max-width: 98vw;
+            }
             .main-container {
-                padding: 24px 8px;
+                padding: 24px 4vw 18px 4vw;
             }
-            .logo {
-                width: 80px;
-                height: 80px;
+            .main-container h1 {
+                font-size: 1.2rem;
             }
-            .title h1 {
-                font-size: 1.3rem;
-            }
-            .title h2 {
-                font-size: 1rem;
-            }
-            .actions .btn {
-                padding: 10px 18px;
-                font-size: 1rem;
+            .logo-area img {
+                max-width: 90vw;
+                aspect-ratio: 3/1;
+                height: auto;
             }
         }
     </style>
 </head>
 <body>
-    <button id="mute-btn" title="静音/取消静音" aria-label="静音">
-        <svg id="mute-icon" viewBox="0 0 24 24">
-            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1-3.29-2.5-4.03v8.06c1.5-.74 2.5-2.26 2.5-4.03zm2.5 0c0 3.04-1.64 5.64-4.5 6.32v2.02c4.01-.91 7-4.49 7-8.34s-2.99-7.43-7-8.34v2.02c2.86.68 4.5 3.28 4.5 6.32z"/>
-        </svg>
-    </button>
-    <video class="bg-video" src="../../resources/vid/backgroundvideo.mp4" loop autoplay muted playsinline
-        style="position:fixed;top:0;left:0;min-width:100vw;min-height:100vh;width:100vw;height:100vh;object-fit:cover;z-index:-1;filter:grayscale(20%);opacity:0.5;">
-    </video>
-    <div id="ad-bar" style="display:none;position:fixed;top:0;left:0;width:100vw;background:linear-gradient(90deg,#4f8cff 60%,#38f9d7 100%);color:#fff;z-index:1000;overflow:hidden;height:38px;line-height:38px;font-size:1rem;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
-        <div id="ad-content" style="white-space:nowrap;display:inline-block;position:relative;left:100vw;"></div>
-    </div>
-    <div class="main-container">
-        <img class="logo" src="../../resources/img/websiteicon.jpg" alt="Chancy Tech Logo" />
-        <div class="title">
+    <div class="main-content">
+        <div class="logo-area">
+            <img src="../../resources/img/websiteicon.png" alt="Chancy Tech Logo" />
+        </div>
+        <div class="main-container">
             <h1>欢迎访问创思科技</h1>
             <h2>Chancy Tech - 让科技更简单</h2>
-        </div>
-        <div class="actions">
-            <a href="./login/"><button class="btn">登录</button></a>
-            <a href="/languagechoose.html"><button class="btn btn-lang">修改语言设置</button></a>
-            <a href="https://blog.chancy.ip-ddns.com/" target="_blank"><button class="btn btn-blog">访问博客</button></a>
+            <div class="actions">
+                <a href="./login/"><button class="btn">登录</button></a>
+                <a href="/languagechoose.html"><button class="btn btn-lang">修改语言设置</button></a>
+                <a href="https://blog.chancy.ip-ddns.com/" target="_blank"><button class="btn btn-blog">访问博客</button></a>
+            </div>
         </div>
     </div>
     <div class="corp">
