@@ -15,56 +15,85 @@
             justify-content: center;
             font-family: "Segoe UI", "微软雅黑", Arial, sans-serif;
         }
-        .lang-container {
-            background: rgba(255,255,255,0.95);
-            border-radius: 18px;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.10);
-            padding: 40px 32px 32px 32px;
-            text-align: center;
-            min-width: 320px;
-        }
-        .lang-container h1 {
-            margin-bottom: 28px;
-            color: #1a237e;
-            font-size: 2rem;
-            letter-spacing: 2px;
-        }
-        .lang-btns {
+        .main-container {
             display: flex;
             flex-direction: column;
-            gap: 18px;
-            margin-bottom: 18px;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            position: relative;
+            z-index: 1;
         }
-        .lang-btns button {
+        .logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 20px;
+            margin-bottom: 28px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+            background: #fff;
+            object-fit: contain;
+        }
+        .title h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin: 0 0 10px 0;
+            letter-spacing: 2px;
+            color: #1a237e;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .title h2 {
             font-size: 1.2rem;
+            margin: 0 0 28px 0;
+            color: #3a3a3a;
+            font-weight: 400;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        }
+        .actions {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 36px;
+        }
+        .actions a {
+            text-decoration: none;
+        }
+        .actions .btn {
+            font-size: 1.1rem;
             color: #fff;
             background: linear-gradient(90deg, #4f8cff 60%, #3a6fd8 100%);
             border: none;
             border-radius: 8px;
-            padding: 12px 0;
+            padding: 12px 36px;
             cursor: pointer;
             transition: background 0.2s, transform 0.2s;
-            box-shadow: 0 2px 8px rgba(79,140,255,0.12);
+            box-shadow: 0 2px 8px rgba(79,140,255,0.10);
+            font-weight: 500;
+            letter-spacing: 1px;
         }
-        .lang-btns button:hover {
+        .actions .btn:hover {
             background: linear-gradient(90deg, #3a6fd8 60%, #4f8cff 100%);
             transform: translateY(-2px) scale(1.04);
         }
-        .back-link {
-            display: block;
-            margin-top: 18px;
-            color: #4f8cff;
-            text-decoration: underline;
-            font-size: 1rem;
+        .actions .btn-blog {
+            background: linear-gradient(90deg,#ffb347 60%,#ffcc33 100%);
+            color: #222;
         }
-        @media (max-width: 500px) {
-            .lang-container {
-                min-width: 0;
-                padding: 24px 8vw 18px 8vw;
-            }
-            .lang-container h1 {
-                font-size: 1.2rem;
-            }
+        .actions .btn-lang {
+            background: linear-gradient(90deg,#43e97b 60%,#38f9d7 100%);
+        }
+        .corp {
+            position: fixed;
+            bottom: 18px;
+            left: 0;
+            width: 100vw;
+            text-align: center;
+            color: #888;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            z-index: 2;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.08);
         }
         #cookie-tip {
             display: none;
@@ -89,50 +118,89 @@
             color: #fff;
             cursor: pointer;
         }
+        @media (max-width: 600px) {
+            .main-container {
+                padding: 24px 8px;
+            }
+            .logo {
+                width: 80px;
+                height: 80px;
+            }
+            .title h1 {
+                font-size: 1.3rem;
+            }
+            .title h2 {
+                font-size: 1rem;
+            }
+            .actions .btn {
+                padding: 10px 18px;
+                font-size: 1rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="lang-container">
-        <h1>请选择您的语言<br>Select your language</h1>
-        <div class="lang-btns">
-            <button onclick="chooseLang('zh-cn')">简体中文</button>
-            <button onclick="chooseLang('en-us')">English</button>
+    <div id="ad-bar" style="display:none;position:fixed;top:0;left:0;width:100vw;background:linear-gradient(90deg,#4f8cff 60%,#38f9d7 100%);color:#fff;z-index:1000;overflow:hidden;height:38px;line-height:38px;font-size:1rem;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
+        <div id="ad-content" style="white-space:nowrap;display:inline-block;position:relative;left:100vw;"></div>
+    </div>
+    <div class="main-container">
+        <img class="logo" src="/img/websiteicon.jpg" alt="Chancy Tech Logo" />
+        <div class="title">
+            <h1>欢迎访问创思科技</h1>
+            <h2>Chancy Tech - 让科技更简单</h2>
         </div>
-        <a class="back-link" href="/">返回首页 / Back to Home</a>
+        <div class="actions">
+            <a href="./login/"><button class="btn">登录</button></a>
+            <a href="/languagechoose.html"><button class="btn btn-lang">修改语言设置</button></a>
+            <a href="https://blog.chancy.ip-ddns.com/" target="_blank"><button class="btn btn-blog">访问博客</button></a>
+        </div>
+    </div>
+    <div class="corp">
+        ©2022-2025 创思科技
     </div>
     <div id="cookie-tip">
         本网站使用Cookie以提升用户体验。
         <button id="cookie-accept">我知道了</button>
     </div>
     <script>
-        // 选择语言并设置cookie，跳转
-        function chooseLang(lang) {
-            document.cookie = "lang=" + lang + ";path=/;max-age=31536000";
-            document.cookie = "cookieTip=1;path=/;max-age=31536000";
-            var params = new URLSearchParams(window.location.search);
-            var redirect = params.get('redirect');
-            // 只允许跳转到本站内安全路径，防止未验证重定向漏洞
-            if (redirect && /^(\/(?!\/)|\.\/|\.\.\/)/.test(decodeURIComponent(redirect))) {
-                window.location.href = decodeURIComponent(redirect);
-            } else if (lang === 'zh-cn') {
-                window.location.href = '/zh-cn/';
-            } else if (lang === 'en-us') {
-                window.location.href = '/en-us/';
+        // 滚动广告栏
+        function startAdScroll(text) {
+            var adBar = document.getElementById('ad-bar');
+            var adContent = document.getElementById('ad-content');
+            adContent.textContent = text;
+            adBar.style.display = 'block';
+            // 滚动动画
+            var width = adBar.offsetWidth;
+            var textWidth = adContent.offsetWidth;
+            var left = width;
+            function scroll() {
+                left -= 1;
+                if (left < -textWidth) left = width;
+                adContent.style.left = left + 'px';
+                requestAnimationFrame(scroll);
+            }
+            scroll();
+        }
+        // 读取根目录下ad.txt内容
+        fetch('/ad.txt?_=' + Date.now())
+            .then(function(res){ return res.ok ? res.text() : ''; })
+            .then(function(text){
+                if(text.trim()) startAdScroll(text.trim());
+            });
+
+        // cookie提示
+        function getCookie(name) {
+            const value = "; " + document.cookie;
+            const parts = value.split("; " + name + "=");
+            if (parts.length === 2) return parts.pop().split(";").shift();
+            return null;
+        }
+        function showCookieTipIfNeeded() {
+            if (!getCookie('cookieTip')) {
+                document.getElementById('cookie-tip').style.display = 'block';
             }
         }
         document.addEventListener('DOMContentLoaded', function() {
-            // cookie提示
-            function getCookie(name) {
-                const value = "; " + document.cookie;
-                const parts = value.split("; " + name + "=");
-                if (parts.length === 2) return parts.pop().split(";").shift();
-                return null;
-            }
-            function showCookieTipIfNeeded() {
-                if (!getCookie('cookieTip')) {
-                    document.getElementById('cookie-tip').style.display = 'block';
-                }
-            }
             showCookieTipIfNeeded();
             var acceptBtn = document.getElementById('cookie-accept');
             if (acceptBtn) {
@@ -140,13 +208,6 @@
                     document.cookie = "cookieTip=1;path=/;max-age=31536000";
                     document.getElementById('cookie-tip').style.display = 'none';
                 };
-            }
-            // 设置返回链接，只允许安全路径
-            var params = new URLSearchParams(window.location.search);
-            var redirect = params.get('redirect');
-            var backLink = document.querySelector('.back-link');
-            if (redirect && backLink && /^(\/(?!\/)|\.\/|\.\.\/)/.test(decodeURIComponent(redirect))) {
-                backLink.href = decodeURIComponent(redirect);
             }
         });
     </script>
