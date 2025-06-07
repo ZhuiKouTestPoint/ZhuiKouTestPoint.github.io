@@ -10,20 +10,21 @@
             padding: 0;
             min-height: 100vh;
             background: linear-gradient(120deg, #4f8cff 0%, #38f9d7 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
             font-family: "Segoe UI", "微软雅黑", Arial, sans-serif;
+            /* 移除flex布局，避免内容偏上 */
         }
 
         #main-style .main-content {
+            /* 居中显示，顶部预留广告栏空间 */
+            padding-top: 56px;
+            min-width: 340px;
+            width: 100%;
+            max-width: 420px;
+            margin: 0 auto;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-width: 340px;
-            width: 100%;
-            max-width: 420px;
         }
 
         #main-style .logo-area {
@@ -146,10 +147,37 @@
             cursor: pointer;
         }
 
+        #main-style #ad-bar {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            background: linear-gradient(90deg,#4f8cff 60%,#38f9d7 100%);
+            color: #fff;
+            z-index: 1000;
+            overflow: hidden;
+            height: 38px;
+            line-height: 38px;
+            font-size: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        #main-style #ad-content {
+            white-space: nowrap;
+            display: inline-block;
+            position: relative;
+            left: 100vw;
+            will-change: left;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
         @media (max-width: 600px) {
             #main-style .main-content {
                 min-width: 0;
                 max-width: 98vw;
+                padding-top: 48px;
             }
 
             #main-style .main-container {
@@ -173,10 +201,13 @@
         style="position:fixed;top:0;left:0;min-width:100vw;min-height:100vh;width:100vw;height:100vh;object-fit:cover;z-index:-2;"></video>
     <div class="bg-overlay"
         style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:-1;pointer-events:none;background:linear-gradient(120deg, #4f8cff 0%, #38f9d7 100%);opacity:0.82;"></div>
-    <div id="ad-bar"
-        style="display:none;position:fixed;top:0;left:0;width:100vw;background:linear-gradient(90deg,#4f8cff 60%,#38f9d7 100%);color:#fff;z-index:1000;overflow:hidden;height:38px;line-height:38px;font-size:1rem;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
-        <div id="ad-content"
-            style="white-space:nowrap;display:inline-block;position:relative;left:100vw;"></div>
+    <!-- 广告栏 -->
+    <div id="ad-bar">
+        <div id="ad-content"></div>
+        <button id="ad-mute-btn" style="position:absolute;right:16px;top:6px;background:rgba(0,0,0,0.12);border:none;border-radius:50%;width:26px;height:26px;cursor:pointer;z-index:2;display:flex;align-items:center;justify-content:center;">
+            <svg id="ad-mute-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9v6h4l5 5V4L7 9H3z"/><path d="M16.5 12c0-1.77-1-3.29-2.5-4.03v8.06c1.5-.74 2.5-2.26 2.5-4.03zm2.5 0c0 3.04-1.64 5.64-4.5 6.32v2.02c4.01-.91 7-4.49 7-8.34s-2.99-7.43-7-8.34v2.02c2.86.68 4.5 3.28 4.5 6.32z"/></svg>
+        </button>
+        <audio id="ad-audio" src="../../resources/med/ad.wav" preload="auto"></audio>
     </div>
     <div class="main-content">
         <div class="logo-area">
@@ -199,74 +230,66 @@
         本网站使用Cookie以提升用户体验。
         <button id="cookie-accept">我知道了</button>
     </div>
-    <audio id="ad-audio" src="../../resources/med/ad.wav" style="display:none;"></audio>
     <script>
-        // 静音按钮功能
+        // 广告栏滚动与音频播放
         (function(){
-            var muteBtn = document.getElementById('mute-btn');
-            var muteIcon = document.getElementById('mute-icon');
+            var adBar = document.getElementById('ad-bar');
+            var adContent = document.getElementById('ad-content');
             var adAudio = document.getElementById('ad-audio');
+            var muteBtn = document.getElementById('ad-mute-btn');
+            var muteIcon = document.getElementById('ad-mute-icon');
             var isMuted = false;
+            // 滚动动画
+            function startAdScroll(text) {
+                adContent.textContent = text;
+                adBar.style.display = 'block';
+                adContent.style.left = adBar.offsetWidth + 'px';
+                function getWidthsAndScroll(attempt) {
+                    var width = adBar.offsetWidth;
+                    var textWidth = adContent.offsetWidth;
+                    if ((width === 0 || textWidth === 0) && attempt < 20) {
+                        setTimeout(function() { getWidthsAndScroll(attempt + 1); }, 50);
+                        return;
+                    }
+                    var left = width;
+                    function scroll() {
+                        left -= 1;
+                        if (left < -textWidth) left = width;
+                        adContent.style.left = left + 'px';
+                        requestAnimationFrame(scroll);
+                    }
+                    scroll();
+                }
+                getWidthsAndScroll(0);
+            }
+            // 音频播放
+            function playAdAudio() {
+                if (window.__adAudioPlayed) return;
+                window.__adAudioPlayed = true;
+                adAudio.currentTime = 0;
+                adAudio.muted = isMuted;
+                adAudio.play().catch(function(){});
+            }
+            // 静音按钮
             function setMuted(muted) {
                 isMuted = muted;
                 adAudio.muted = muted;
-                // 切换icon
-                if(muted) {
-                    muteIcon.innerHTML = '<path d="M16.5 12c0-1.77-1-3.29-2.5-4.03v8.06c1.5-.74 2.5-2.26 2.5-4.03zm2.5 0c0 3.04-1.64 5.64-4.5 6.32v2.02c4.01-.91 7-4.49 7-8.34s-2.99-7.43-7-8.34v2.02c2.86.68 4.5 3.28 4.5 6.32z"/><line x1="4" y1="4" x2="20" y2="20" stroke="#4f8cff" stroke-width="2"/>';
-                } else {
-                    muteIcon.innerHTML = '<path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1-3.29-2.5-4.03v8.06c1.5-.74 2.5-2.26 2.5-4.03zm2.5 0c0 3.04-1.64 5.64-4.5 6.32v2.02c4.01-.91 7-4.49 7-8.34s-2.99-7.43-7-8.34v2.02c2.86.68 4.5 3.28 4.5 6.32z"/>';
-                }
+                muteIcon.innerHTML = muted
+                    ? '<path d="M3 9v6h4l5 5V4L7 9H3z"/><line x1="4" y1="4" x2="20" y2="20" stroke="#fff" stroke-width="2"/>'
+                    : '<path d="M3 9v6h4l5 5V4L7 9H3z"/><path d="M16.5 12c0-1.77-1-3.29-2.5-4.03v8.06c1.5-.74 2.5-2.26 2.5-4.03zm2.5 0c0 3.04-1.64 5.64-4.5 6.32v2.02c4.01-.91 7-4.49 7-8.34s-2.99-7.43-7-8.34v2.02c2.86.68 4.5 3.28 4.5 6.32z"/>';
             }
-            muteBtn.onclick = function() {
-                setMuted(!isMuted);
-            };
-            // 默认不静音
+            muteBtn.onclick = function() { setMuted(!isMuted); };
             setMuted(false);
+            // 读取广告文本并启动
+            fetch('../../resources/txt/ad.txt?_=' + Date.now())
+                .then(function(res){ return res.ok ? res.text() : ''; })
+                .then(function(text){
+                    if(text.trim()) {
+                        startAdScroll(text.trim());
+                        playAdAudio();
+                    }
+                });
         })();
-
-        // 滚动广告栏
-        function startAdScroll(text) {
-            var adBar = document.getElementById('ad-bar');
-            var adContent = document.getElementById('ad-content');
-            adContent.textContent = text;
-            adBar.style.display = 'block';
-            // 多次检测宽度，确保渲染完成
-            function getWidthsAndScroll(attempt) {
-                var width = adBar.offsetWidth;
-                var textWidth = adContent.offsetWidth;
-                if ((width === 0 || textWidth === 0) && attempt < 10) {
-                    setTimeout(function() { getWidthsAndScroll(attempt + 1); }, 50);
-                    return;
-                }
-                var left = width;
-                function scroll() {
-                    left -= 1;
-                    if (left < -textWidth) left = width;
-                    adContent.style.left = left + 'px';
-                    requestAnimationFrame(scroll);
-                }
-                scroll();
-            }
-            getWidthsAndScroll(0);
-        }
-        // 广告音频自动播放
-        function playAdAudio() {
-            if (window.__adAudioPlayed) return;
-            window.__adAudioPlayed = true;
-            var audio = document.getElementById('ad-audio');
-            audio.currentTime = 0;
-            audio.muted = false;
-            audio.play().catch(function(){});
-        }
-        // 读取ad.txt内容
-        fetch('../../resources/txt/ad.txt?_=' + Date.now())
-            .then(function(res){ return res.ok ? res.text() : ''; })
-            .then(function(text){
-                if(text.trim()) {
-                    startAdScroll(text.trim());
-                    playAdAudio();
-                }
-            });
 
         // cookie提示
         function getCookie(name) {
