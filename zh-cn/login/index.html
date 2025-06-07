@@ -9,6 +9,7 @@
 		<script type="text/javascript" src="signin.js"></script>
 	</head>
 	<body>
+    <video class="bg-video" src="../../resources/vid/backgroundvideo.mp4" loop autoplay muted playsinline style="position:fixed;top:0;left:0;min-width:100vw;min-height:100vh;width:100vw;height:100vh;object-fit:cover;z-index:-1;filter:grayscale(20%);opacity:0.5;"></video>
     <div class="main-content">
         <div class="logo-area">
             <img src="../../resources/img/websiteicon.png" alt="Chancy Tech Logo" />
@@ -74,8 +75,12 @@
             transition: transform 0.2s;
             display: block;
         }
-        .logo-area img:hover {
-            transform: scale(1.08) rotate(-2deg);
+        @media (max-width: 600px) {
+            .logo-area img {
+                max-width: 90vw;
+                aspect-ratio: 3/1;
+                height: auto;
+            }
         }
         .main-container {
             background: rgba(255,255,255,0.97);
@@ -149,11 +154,6 @@
             }
             .main-container h1 {
                 font-size: 1.2rem;
-            }
-            .logo-area img {
-                max-width: 90vw;
-                aspect-ratio: 3/1;
-                height: auto;
             }
         }
     </style>
