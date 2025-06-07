@@ -148,7 +148,8 @@
         }
 
         #main-style #ad-bar {
-            display: none;
+            display: flex; /* 保证广告栏始终渲染 */
+            align-items: center;
             position: fixed;
             top: 0;
             left: 0;
@@ -242,7 +243,7 @@
             // 滚动动画
             function startAdScroll(text) {
                 adContent.textContent = text;
-                adBar.style.display = 'block';
+                adBar.style.display = 'flex'; // 保证广告栏显示
                 adContent.style.left = adBar.offsetWidth + 'px';
                 function getWidthsAndScroll(attempt) {
                     var width = adBar.offsetWidth;
@@ -264,21 +265,17 @@
             }
             // 音频播放
             function playAdAudio() {
-                if (window.__adAudioPlayed) return;
-                window.__adAudioPlayed = true;
                 adAudio.currentTime = 0;
-                adAudio.muted = isMuted; // 默认开声音播放
-                adAudio.play().catch(function(){});
+                adAudio.muted = isMuted;
+                adAudio.play().catch(function(e){console.log('adAudio play error',e);});
             }
-            // 用户首次交互后自动重播（不再自动取消静音）
-            function enableAdAudioOnUserGesture() {
-                function handler() {
-                    adAudio.muted = isMuted;
-                    adAudio.currentTime = 0;
-                    adAudio.play().catch(function(){});
-                    window.removeEventListener('pointerdown', handler, true);
-                }
-                window.addEventListener('pointerdown', handler, true);
+            // 静音按钮
+            function setMuted(muted) {
+                isMuted = muted;
+                adAudio.muted = muted;
+                muteIcon.innerHTML = muted
+                    ? '<path d="M3 9v6h4l5 5V4L7 9H3z"/><line x1="4" y1="4" x2="20" y2="20" stroke="#fff" stroke-width="2"/>'
+                    : '<path d="M3 9v6h4l5 5V4L7 9H3z"/><path d="M16.5 12c0-1.77-1-3.29-2.5-4.03v8.06c1.5-.74 2.5-2.26 2.5-4.03zm2.5 0c0 3.04-1.64 5.64-4.5 6.32v2.02c4.01-.91 7-4.49 7-8.34s-2.99-7.43-7-8.34v2.02c2.86.68 4.5 3.28 4.5 6.32z"/>';
             }
             muteBtn.onclick = function() { setMuted(!isMuted); };
             setMuted(false); // 默认开声音
@@ -289,7 +286,8 @@
                     if(text.trim()) {
                         startAdScroll(text.trim());
                         playAdAudio();
-                        enableAdAudioOnUserGesture();
+                    } else {
+                        adBar.style.display = 'none';
                     }
                 });
         })();
