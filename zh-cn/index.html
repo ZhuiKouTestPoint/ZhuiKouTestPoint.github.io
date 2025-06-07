@@ -151,7 +151,11 @@
     </style>
 </head>
 <body>
-    <video class="bg-video" src="../../resources/vid/backgroundvideo.mp4" loop autoplay muted playsinline style="position:fixed;top:0;left:0;min-width:100vw;min-height:100vh;width:100vw;height:100vh;object-fit:cover;z-index:-1;"></video>
+    <video class="bg-video" src="../../resources/vid/backgroundvideo.mp4" loop autoplay muted playsinline style="position:fixed;top:0;left:0;min-width:100vw;min-height:100vh;width:100vw;height:100vh;object-fit:cover;z-index:-2;"></video>
+    <div class="bg-overlay" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:-1;pointer-events:none;background:linear-gradient(120deg, #4f8cff 0%, #38f9d7 100%);opacity:0.82;"></div>
+    <div id="ad-bar" style="display:none;position:fixed;top:0;left:0;width:100vw;background:linear-gradient(90deg,#4f8cff 60%,#38f9d7 100%);color:#fff;z-index:1000;overflow:hidden;height:38px;line-height:38px;font-size:1rem;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
+        <div id="ad-content" style="white-space:nowrap;display:inline-block;position:relative;left:100vw;"></div>
+    </div>
     <div class="main-content">
         <div class="logo-area">
             <img src="../../resources/img/websiteicon.png" alt="Chancy Tech Logo" />
@@ -218,16 +222,15 @@
                 scroll();
             }, 50);
         }
-
-        // 广告转人声播放（播放根目录下ad.wav）
+        // 广告音频自动播放
         function playAdAudio() {
             if (window.__adAudioPlayed) return;
             window.__adAudioPlayed = true;
             var audio = document.getElementById('ad-audio');
             audio.currentTime = 0;
+            audio.muted = false;
             audio.play().catch(function(){});
         }
-
         // 读取ad.txt内容
         fetch('../../resources/txt/ad.txt?_=' + Date.now())
             .then(function(res){ return res.ok ? res.text() : ''; })
