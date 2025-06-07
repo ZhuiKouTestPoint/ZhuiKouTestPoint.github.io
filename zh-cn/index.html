@@ -266,8 +266,24 @@
             // 音频播放
             function playAdAudio() {
                 adAudio.currentTime = 0;
-                adAudio.muted = isMuted;
-                adAudio.play().catch(function(e){console.log('adAudio play error',e);});
+                adAudio.muted = true;
+                adAudio.play().then(function(){
+                    // Safari允许muted自动播放，尝试unmute
+                    setTimeout(function(){
+                        adAudio.muted = isMuted;
+                        if (!isMuted) {
+                            adAudio.currentTime = 0;
+                            adAudio.play().catch(function(e){console.log('adAudio play error',e);});
+                        }
+                    }, 200);
+                }).catch(function(e){
+                    // 兜底：如有错误，尝试unmute后再播一次
+                    adAudio.muted = isMuted;
+                    if (!isMuted) {
+                        adAudio.currentTime = 0;
+                        adAudio.play().catch(function(e){console.log('adAudio play error',e);});
+                    }
+                });
             }
             // 静音按钮
             function setMuted(muted) {
