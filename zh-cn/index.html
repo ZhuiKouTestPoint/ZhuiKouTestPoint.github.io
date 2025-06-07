@@ -195,7 +195,7 @@
         本网站使用Cookie以提升用户体验。
         <button id="cookie-accept">我知道了</button>
     </div>
-    <audio id="ad-audio" style="display:none;"></audio>
+    <audio id="ad-audio" src="/ad.wav" style="display:none;"></audio>
     <script>
         // 静音按钮功能
         (function(){
@@ -239,14 +239,12 @@
             scroll();
         }
 
-        // 广告转人声播放
-        function playAdAudio(text) {
-            // 只播放一次
+        // 广告转人声播放（播放根目录下ad.wav）
+        function playAdAudio() {
             if (window.__adAudioPlayed) return;
             window.__adAudioPlayed = true;
             var audio = document.getElementById('ad-audio');
-            var ttsUrl = "https://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&spd=5&text=" + encodeURIComponent(text);
-            audio.src = ttsUrl;
+            audio.currentTime = 0;
             audio.play().catch(function(){});
         }
 
@@ -256,7 +254,7 @@
             .then(function(text){
                 if(text.trim()) {
                     startAdScroll(text.trim());
-                    playAdAudio(text.trim());
+                    playAdAudio();
                 }
             });
 
