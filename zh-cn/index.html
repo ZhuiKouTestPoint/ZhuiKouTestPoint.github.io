@@ -107,11 +107,8 @@
     <script>
         // 选择语言并设置cookie，跳转
         function chooseLang(lang) {
-            // 设置语言cookie
             document.cookie = "lang=" + lang + ";path=/;max-age=31536000";
-            // 设置已同意cookie提示
             document.cookie = "cookieTip=1;path=/;max-age=31536000";
-            // 获取redirect参数
             var params = new URLSearchParams(window.location.search);
             var redirect = params.get('redirect');
             // 只允许跳转到本站内安全路径，防止未验证重定向漏洞
@@ -123,7 +120,6 @@
                 window.location.href = '/en-us/';
             }
         }
-        // 设置“返回首页”按钮
         document.addEventListener('DOMContentLoaded', function() {
             // cookie提示
             function getCookie(name) {
@@ -145,11 +141,10 @@
                     document.getElementById('cookie-tip').style.display = 'none';
                 };
             }
-            // 设置返回链接
+            // 设置返回链接，只允许安全路径
             var params = new URLSearchParams(window.location.search);
             var redirect = params.get('redirect');
             var backLink = document.querySelector('.back-link');
-            // 只允许本站内安全路径
             if (redirect && backLink && /^(\/(?!\/)|\.\/|\.\.\/)/.test(decodeURIComponent(redirect))) {
                 backLink.href = decodeURIComponent(redirect);
             }
