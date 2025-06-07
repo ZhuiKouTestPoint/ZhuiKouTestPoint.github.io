@@ -226,17 +226,19 @@
             var adContent = document.getElementById('ad-content');
             adContent.textContent = text;
             adBar.style.display = 'block';
-            // 滚动动画
-            var width = adBar.offsetWidth;
-            var textWidth = adContent.offsetWidth;
-            var left = width;
-            function scroll() {
-                left -= 1;
-                if (left < -textWidth) left = width;
-                adContent.style.left = left + 'px';
-                requestAnimationFrame(scroll);
-            }
-            scroll();
+            // 延迟获取宽度，确保渲染完成
+            setTimeout(function() {
+                var width = adBar.offsetWidth;
+                var textWidth = adContent.offsetWidth;
+                var left = width;
+                function scroll() {
+                    left -= 1;
+                    if (left < -textWidth) left = width;
+                    adContent.style.left = left + 'px';
+                    requestAnimationFrame(scroll);
+                }
+                scroll();
+            }, 50);
         }
 
         // 广告转人声播放（播放根目录下ad.wav）
