@@ -1,40 +1,14 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>缀扣信息登录</title>
-		<link rel="shortcut icon" href="../../resources/img/websiteicon.png" type="image/x-icon">
-		<link rel="stylesheet" href="../css/normalpage.css" type="text/css">
-		<link rel="stylesheet" href="signin.css" type="text/css">
-		<script type="text/javascript" src="signin.js"></script>
-	</head>
-	<body>
-    <video class="bg-video" src="../../resources/vid/backgroundvideo.mp4" loop autoplay muted playsinline style="position:fixed;top:0;left:0;min-width:100vw;min-height:100vh;width:100vw;height:100vh;object-fit:cover;z-index:-2;"></video>
-    <div class="bg-overlay" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:-1;pointer-events:none;background:linear-gradient(120deg, #4f8cff 0%, #38f9d7 100%);opacity:0.82;"></div>
-    <div class="main-content">
-        <div class="logo-area" style="margin-bottom: 32px;">
-            <img src="../../resources/img/websiteicon.png" alt="Chancy Tech Logo" />
-        </div>
-        <div class="main-container" style="padding-top: 18px; padding-bottom: 18px;">
-            <h1 style="margin-bottom: 18px;">请登录您的账号</h1>
-            <form action="../adminpanel/index.html" style="display: flex; flex-direction: column; align-items: center; gap: 18px;">
-                <h2 style="color: #1a237e; margin-bottom: 10px;">缀扣信息网站管理系统</h2>
-                <div class="inputBox" style="width: 100%; max-width: 260px;">
-                    <div class="inputText" style="margin-bottom: 12px;">
-                        <input type="text" name="uname" placeholder="Username" id="username" style="width: 100%;" />
-                    </div>
-                    <div class="inputText" style="margin-bottom: 18px;">
-                        <input type="password" placeholder="Password" id="password" style="width: 100%;" />
-                    </div>
-                    <input class="inputButton btn" type="submit" onclick="judge()" value="登录" style="width: 100%; margin-bottom: 10px;">
-                </div>
-                <p style="margin: 0 0 8px 0; font-size: 0.98rem;">登录即代表您同意我们的
-                    <a href="../agreements/serviceagreement/index.html">服务条款</a>
-                    及<a href="../agreements/secretagreement/index.html">隐私协议</a></p>
-                <p style="margin: 0; font-size: 0.95rem; color: #888;">© 2023 JQ Tech 版权所有</p>
-            </form>
-        </div>
-    </div>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <title>缀扣信息登录</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="shortcut icon" href="../../resources/img/websiteicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="../css/normalpage.css" type="text/css">
+    <link rel="stylesheet" href="signin.css" type="text/css">
+    <script type="text/javascript" src="signin.js"></script>
     <style>
         body {
             margin: 0;
@@ -46,6 +20,7 @@
             justify-content: center;
             font-family: "Segoe UI", "微软雅黑", Arial, sans-serif;
         }
+
         .main-content {
             display: flex;
             flex-direction: column;
@@ -55,25 +30,28 @@
             width: 100%;
             max-width: 420px;
         }
+
         .logo-area {
             display: flex;
             flex-direction: column;
             align-items: center;
             margin-bottom: 18px;
         }
+
         .logo-area img {
             width: 100%;
             max-width: 240px;
             aspect-ratio: 3/1;
             height: auto;
             border-radius: 18px;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.13);
             background: #fff;
             object-fit: contain;
             margin-bottom: 10px;
             transition: transform 0.2s;
             display: block;
         }
+
         @media (max-width: 600px) {
             .logo-area img {
                 max-width: 90vw;
@@ -81,34 +59,40 @@
                 height: auto;
             }
         }
+
         .main-container {
-            background: rgba(255,255,255,0.97);
+            background: rgba(255, 255, 255, 0.97);
             border-radius: 20px;
-            box-shadow: 0 6px 32px rgba(0,0,0,0.13);
+            box-shadow: 0 6px 32px rgba(0, 0, 0, 0.13);
             padding: 44px 32px 32px 32px;
             text-align: center;
             min-width: 0;
             width: 100%;
         }
+
         .main-container h1 {
             margin-bottom: 18px;
             color: #1a237e;
             font-size: 2rem;
             letter-spacing: 2px;
         }
+
         .main-container h2 {
             font-size: 1.1rem;
             margin: 0 0 28px 0;
             color: #3a3a3a;
             font-weight: 400;
-            text-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
         }
+
         .inputBox {
             margin-bottom: 18px;
         }
+
         .inputText {
             margin-bottom: 12px;
         }
+
         .inputText input {
             background-color: #fff;
             color: #222;
@@ -122,10 +106,12 @@
             font-size: 1rem;
             transition: box-shadow 0.2s;
         }
+
         .inputText input:focus {
-            box-shadow: 0 2px 8px rgba(79,140,255,0.18);
+            box-shadow: 0 2px 8px rgba(79, 140, 255, 0.18);
             border-color: #4f8cff;
         }
+
         .inputButton.btn {
             background: linear-gradient(90deg, #4f8cff 60%, #3a6fd8 100%);
             color: #fff;
@@ -137,24 +123,65 @@
             cursor: pointer;
             margin-top: 10px;
             transition: background 0.2s, transform 0.2s;
-            box-shadow: 0 2px 8px rgba(79,140,255,0.12);
+            box-shadow: 0 2px 8px rgba(79, 140, 255, 0.12);
         }
+
         .inputButton.btn:hover {
             background: linear-gradient(90deg, #3a6fd8 60%, #4f8cff 100%);
             transform: translateY(-2px) scale(1.04);
         }
+
         @media (max-width: 600px) {
             .main-content {
                 min-width: 0;
                 max-width: 98vw;
             }
+
             .main-container {
                 padding: 24px 4vw 18px 4vw;
             }
+
             .main-container h1 {
                 font-size: 1.2rem;
             }
         }
     </style>
-	</body>
+</head>
+
+<body>
+    <video class="bg-video" src="../../resources/vid/backgroundvideo.mp4" loop autoplay muted playsinline
+        style="position:fixed;top:0;left:0;min-width:100vw;min-height:100vh;width:100vw;height:100vh;object-fit:cover;z-index:-2;"></video>
+    <div class="bg-overlay"
+        style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:-1;pointer-events:none;background:linear-gradient(120deg, #4f8cff 0%, #38f9d7 100%);opacity:0.82;"></div>
+    <div class="main-content">
+        <div class="logo-area" style="margin-bottom: 32px;">
+            <img src="../../resources/img/websiteicon.png" alt="Chancy Tech Logo" />
+        </div>
+        <div class="main-container" style="padding-top: 18px; padding-bottom: 18px;">
+            <h1 style="margin-bottom: 18px;">请登录您的账号</h1>
+            <form action="../adminpanel/index.html"
+                style="display: flex; flex-direction: column; align-items: center; gap: 18px;">
+                <h2 style="color: #1a237e; margin-bottom: 10px;">缀扣信息网站管理系统</h2>
+                <div class="inputBox" style="width: 100%; max-width: 260px;">
+                    <div class="inputText" style="margin-bottom: 12px;">
+                        <input type="text" name="uname" placeholder="Username" id="username" style="width: 100%;" />
+                    </div>
+                    <div class="inputText" style="margin-bottom: 18px;">
+                        <input type="password" placeholder="Password" id="password" style="width: 100%;" />
+                    </div>
+                    <input class="inputButton btn" type="submit" onclick="judge()" value="登录"
+                        style="width: 100%; margin-bottom: 10px;">
+                </div>
+                <p style="margin: 0 0 8px 0; font-size: 0.98rem;">登录即代表您同意我们的
+                    <a href="../agreements/serviceagreement/index.html">服务条款</a>
+                    及<a href="../agreements/secretagreement/index.html">隐私协议</a></p>
+                <p style="margin: 0; font-size: 0.95rem; color: #888;">© 2023 JQ Tech 版权所有</p>
+            </form>
+        </div>
+    </div>
+    <script>
+        // ...existing code...
+    </script>
+</body>
+
 </html>

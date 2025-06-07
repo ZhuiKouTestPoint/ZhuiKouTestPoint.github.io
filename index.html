@@ -16,6 +16,7 @@
             justify-content: center;
             font-family: "Segoe UI", "微软雅黑", Arial, sans-serif;
         }
+
         .main-content {
             display: flex;
             flex-direction: column;
@@ -25,12 +26,14 @@
             width: 100%;
             max-width: 420px;
         }
+
         .logo-area {
             display: flex;
             flex-direction: column;
             align-items: center;
             margin-bottom: 18px;
         }
+
         .logo-area img {
             width: 100%;
             max-width: 240px;
@@ -44,9 +47,11 @@
             transition: transform 0.2s;
             display: block;
         }
+
         .logo-area img:hover {
             transform: scale(1.08) rotate(-2deg);
         }
+
         .main-container {
             background: rgba(255,255,255,0.97);
             border-radius: 20px;
@@ -56,12 +61,14 @@
             min-width: 0;
             width: 100%;
         }
+
         .main-container h1 {
             margin-bottom: 18px;
             color: #1a237e;
             font-size: 2rem;
             letter-spacing: 2px;
         }
+
         .main-container p {
             font-size: 1.1rem;
             margin: 0 0 28px 0;
@@ -69,6 +76,7 @@
             font-weight: 400;
             text-shadow: 0 1px 4px rgba(0,0,0,0.06);
         }
+
         .langchoose {
             display: flex;
             flex-direction: column;
@@ -76,6 +84,7 @@
             align-items: center;
             margin-bottom: 18px;
         }
+
         .btn {
             font-size: 1.2rem;
             color: #fff;
@@ -88,13 +97,16 @@
             transition: background 0.2s, transform 0.2s;
             box-shadow: 0 2px 8px rgba(79,140,255,0.12);
         }
+
         .btn-lang {
             background: linear-gradient(90deg,#43e97b 60%,#38f9d7 100%);
         }
+
         .btn:hover {
             background: linear-gradient(90deg, #3a6fd8 60%, #4f8cff 100%);
             transform: translateY(-2px) scale(1.04);
         }
+
         .corp {
             position: fixed;
             bottom: 18px;
@@ -107,6 +119,7 @@
             z-index: 2;
             text-shadow: 0 1px 4px rgba(0,0,0,0.08);
         }
+
         #cookie-tip {
             display: none;
             position: fixed;
@@ -121,6 +134,7 @@
             box-shadow: 0 2px 12px rgba(0,0,0,0.18);
             font-size: 1rem;
         }
+
         #cookie-accept {
             margin-left: 18px;
             padding: 6px 18px;
@@ -130,17 +144,21 @@
             color: #fff;
             cursor: pointer;
         }
+
         @media (max-width: 600px) {
             .main-content {
                 min-width: 0;
                 max-width: 98vw;
             }
+
             .main-container {
                 padding: 24px 4vw 18px 4vw;
             }
+
             .main-container h1 {
                 font-size: 1.2rem;
             }
+
             .logo-area img {
                 max-width: 90vw;
                 aspect-ratio: 3/1;
@@ -150,7 +168,8 @@
     </style>
 </head>
 <body>
-    <video class="bg-video" src="resources/vid/backgroundvideo.mp4" loop autoplay muted playsinline style="position:fixed;top:0;left:0;min-width:100vw;min-height:100vh;width:100vw;height:100vh;object-fit:cover;z-index:-1;"></video>
+    <video class="bg-video" src="resources/vid/backgroundvideo.mp4" loop autoplay muted playsinline
+        style="position:fixed;top:0;left:0;min-width:100vw;min-height:100vh;width:100vw;height:100vh;object-fit:cover;z-index:-1;"></video>
     <div class="main-content">
         <div class="logo-area">
             <img src="resources/img/websiteicon.png" alt="Chancy Tech Logo" />

@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <title>选择语言 - Chancy Tech</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <style>
-        body {
+    <style id="main-style">
+        #main-style body {
             margin: 0;
             padding: 0;
             min-height: 100vh;
@@ -15,7 +15,8 @@
             justify-content: center;
             font-family: "Segoe UI", "微软雅黑", Arial, sans-serif;
         }
-        .main-content {
+
+        #main-style .main-content {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -24,13 +25,15 @@
             width: 100%;
             max-width: 420px;
         }
-        .logo-area {
+
+        #main-style .logo-area {
             display: flex;
             flex-direction: column;
             align-items: center;
             margin-bottom: 18px;
         }
-        .logo-area img {
+
+        #main-style .logo-area img {
             width: 100%;
             max-width: 240px;
             aspect-ratio: 3/1;
@@ -43,7 +46,8 @@
             transition: transform 0.2s;
             display: block;
         }
-        .main-container {
+
+        #main-style .main-container {
             background: rgba(255,255,255,0.97);
             border-radius: 20px;
             box-shadow: 0 6px 32px rgba(0,0,0,0.13);
@@ -52,27 +56,31 @@
             min-width: 0;
             width: 100%;
         }
-        .main-container h1 {
+
+        #main-style .main-container h1 {
             margin-bottom: 18px;
             color: #1a237e;
             font-size: 2rem;
             letter-spacing: 2px;
         }
-        .main-container h2 {
+
+        #main-style .main-container h2 {
             font-size: 1.1rem;
             margin: 0 0 28px 0;
             color: #3a3a3a;
             font-weight: 400;
             text-shadow: 0 1px 4px rgba(0,0,0,0.06);
         }
-        .actions {
+
+        #main-style .actions {
             display: flex;
             flex-direction: row;
             gap: 20px;
             justify-content: center;
             margin-bottom: 36px;
         }
-        .btn {
+
+        #main-style .btn {
             font-size: 1.1rem;
             color: #fff;
             background: linear-gradient(90deg, #4f8cff 60%, #3a6fd8 100%);
@@ -85,18 +93,22 @@
             font-weight: 500;
             letter-spacing: 1px;
         }
-        .btn-lang {
+
+        #main-style .btn-lang {
             background: linear-gradient(90deg,#43e97b 60%,#38f9d7 100%);
         }
-        .btn-blog {
+
+        #main-style .btn-blog {
             background: linear-gradient(90deg,#ffb347 60%,#ffcc33 100%);
             color: #222;
         }
-        .btn:hover {
+
+        #main-style .btn:hover {
             background: linear-gradient(90deg, #3a6fd8 60%, #4f8cff 100%);
             transform: translateY(-2px) scale(1.04);
         }
-        .corp {
+
+        #main-style .corp {
             position: fixed;
             bottom: 18px;
             left: 0;
@@ -108,7 +120,8 @@
             z-index: 2;
             text-shadow: 0 1px 4px rgba(0,0,0,0.08);
         }
-        #cookie-tip {
+
+        #main-style #cookie-tip {
             display: none;
             position: fixed;
             bottom: 38px;
@@ -122,7 +135,8 @@
             box-shadow: 0 2px 12px rgba(0,0,0,0.18);
             font-size: 1rem;
         }
-        #cookie-accept {
+
+        #main-style #cookie-accept {
             margin-left: 18px;
             padding: 6px 18px;
             border: none;
@@ -131,18 +145,22 @@
             color: #fff;
             cursor: pointer;
         }
+
         @media (max-width: 600px) {
-            .main-content {
+            #main-style .main-content {
                 min-width: 0;
                 max-width: 98vw;
             }
-            .main-container {
+
+            #main-style .main-container {
                 padding: 24px 4vw 18px 4vw;
             }
-            .main-container h1 {
+
+            #main-style .main-container h1 {
                 font-size: 1.2rem;
             }
-            .logo-area img {
+
+            #main-style .logo-area img {
                 max-width: 90vw;
                 aspect-ratio: 3/1;
                 height: auto;
@@ -150,11 +168,15 @@
         }
     </style>
 </head>
-<body>
-    <video class="bg-video" src="../../resources/vid/backgroundvideo.mp4" loop autoplay muted playsinline style="position:fixed;top:0;left:0;min-width:100vw;min-height:100vh;width:100vw;height:100vh;object-fit:cover;z-index:-2;"></video>
-    <div class="bg-overlay" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:-1;pointer-events:none;background:linear-gradient(120deg, #4f8cff 0%, #38f9d7 100%);opacity:0.82;"></div>
-    <div id="ad-bar" style="display:none;position:fixed;top:0;left:0;width:100vw;background:linear-gradient(90deg,#4f8cff 60%,#38f9d7 100%);color:#fff;z-index:1000;overflow:hidden;height:38px;line-height:38px;font-size:1rem;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
-        <div id="ad-content" style="white-space:nowrap;display:inline-block;position:relative;left:100vw;"></div>
+<body id="main-style">
+    <video class="bg-video" src="../../resources/vid/backgroundvideo.mp4" loop autoplay muted playsinline
+        style="position:fixed;top:0;left:0;min-width:100vw;min-height:100vh;width:100vw;height:100vh;object-fit:cover;z-index:-2;"></video>
+    <div class="bg-overlay"
+        style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:-1;pointer-events:none;background:linear-gradient(120deg, #4f8cff 0%, #38f9d7 100%);opacity:0.82;"></div>
+    <div id="ad-bar"
+        style="display:none;position:fixed;top:0;left:0;width:100vw;background:linear-gradient(90deg,#4f8cff 60%,#38f9d7 100%);color:#fff;z-index:1000;overflow:hidden;height:38px;line-height:38px;font-size:1rem;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
+        <div id="ad-content"
+            style="white-space:nowrap;display:inline-block;position:relative;left:100vw;"></div>
     </div>
     <div class="main-content">
         <div class="logo-area">
@@ -208,10 +230,14 @@
             var adContent = document.getElementById('ad-content');
             adContent.textContent = text;
             adBar.style.display = 'block';
-            // 延迟获取宽度，确保渲染完成
-            setTimeout(function() {
+            // 多次检测宽度，确保渲染完成
+            function getWidthsAndScroll(attempt) {
                 var width = adBar.offsetWidth;
                 var textWidth = adContent.offsetWidth;
+                if ((width === 0 || textWidth === 0) && attempt < 10) {
+                    setTimeout(function() { getWidthsAndScroll(attempt + 1); }, 50);
+                    return;
+                }
                 var left = width;
                 function scroll() {
                     left -= 1;
@@ -220,7 +246,8 @@
                     requestAnimationFrame(scroll);
                 }
                 scroll();
-            }, 50);
+            }
+            getWidthsAndScroll(0);
         }
         // 广告音频自动播放
         function playAdAudio() {
