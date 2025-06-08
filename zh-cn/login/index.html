@@ -192,20 +192,26 @@
             }
             function switchResourceToGitee() {
                 var giteePrefix = 'https://gitee.com/chancyTech/github-image/raw/main/resources/';
-                document.querySelectorAll('img[src^="../../resources/"]').forEach(function(img){
-                    img.src = img.src.replace(/\/resources\/(img|vid|med|txt)\//, function(m){
-                        return giteePrefix + m.split('/')[2] + '/';
-                    });
+                document.querySelectorAll('img').forEach(function(img){
+                    if(img.src.includes('/resources/')){
+                        img.src = img.src.replace(/https?:\/\/[^/]+\/.*?(\/resources\/(img|vid|med|txt)\/)/, function(m, p1){
+                            return giteePrefix + p1.split('/')[2] + '/';
+                        });
+                    }
                 });
-                document.querySelectorAll('video[src^="../../resources/"]').forEach(function(video){
-                    video.src = video.src.replace(/\/resources\/(img|vid|med|txt)\//, function(m){
-                        return giteePrefix + m.split('/')[2] + '/';
-                    });
+                document.querySelectorAll('video').forEach(function(video){
+                    if(video.src.includes('/resources/')){
+                        video.src = video.src.replace(/https?:\/\/[^/]+\/.*?(\/resources\/(img|vid|med|txt)\/)/, function(m, p1){
+                            return giteePrefix + p1.split('/')[2] + '/';
+                        });
+                    }
                 });
-                document.querySelectorAll('audio[src^="../../resources/"]').forEach(function(audio){
-                    audio.src = audio.src.replace(/\/resources\/(img|vid|med|txt)\//, function(m){
-                        return giteePrefix + m.split('/')[2] + '/';
-                    });
+                document.querySelectorAll('audio').forEach(function(audio){
+                    if(audio.src.includes('/resources/')){
+                        audio.src = audio.src.replace(/https?:\/\/[^/]+\/.*?(\/resources\/(img|vid|med|txt)\/)/, function(m, p1){
+                            return giteePrefix + p1.split('/')[2] + '/';
+                        });
+                    }
                 });
             }
             isChinaMainland(function(isCN){
