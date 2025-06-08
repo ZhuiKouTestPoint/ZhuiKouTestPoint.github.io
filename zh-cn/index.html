@@ -232,6 +232,44 @@
         <button id="cookie-accept">我知道了</button>
     </div>
     <script>
+        // 资源路径自动切换（中国大陆自动用gitee源）
+        (function() {
+            // 判断是否中国大陆IP
+            function isChinaMainland(callback) {
+                fetch('https://ipapi.co/json/')
+                    .then(function(res){ return res.json(); })
+                    .then(function(data){
+                        callback(data && data.country_code === 'CN' && data.country_name === 'China');
+                    })
+                    .catch(function(){ callback(false); });
+            }
+            // 替换资源路径
+            function switchResourceToGitee() {
+                var giteePrefix = 'https://gitee.com/chancyTech/github-image/raw/main/resources/';
+                // 图片
+                document.querySelectorAll('img[src^="../../resources/"]').forEach(function(img){
+                    img.src = img.src.replace(/\/resources\/(img|vid|med|txt)\//, function(m){
+                        return giteePrefix + m.split('/')[2] + '/';
+                    });
+                });
+                // 视频
+                document.querySelectorAll('video[src^="../../resources/"]').forEach(function(video){
+                    video.src = video.src.replace(/\/resources\/(img|vid|med|txt)\//, function(m){
+                        return giteePrefix + m.split('/')[2] + '/';
+                    });
+                });
+                // 音频
+                document.querySelectorAll('audio[src^="../../resources/"]').forEach(function(audio){
+                    audio.src = audio.src.replace(/\/resources\/(img|vid|med|txt)\//, function(m){
+                        return giteePrefix + m.split('/')[2] + '/';
+                    });
+                });
+            }
+            isChinaMainland(function(isCN){
+                if(isCN) switchResourceToGitee();
+            });
+        })();
+
         // 广告栏滚动与音频播放
         (function(){
             var adBar = document.getElementById('ad-bar');

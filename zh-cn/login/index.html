@@ -180,7 +180,38 @@
         </div>
     </div>
     <script>
-        // ...existing code...
+        // 资源路径自动切换（中国大陆自动用gitee源）
+        (function() {
+            function isChinaMainland(callback) {
+                fetch('https://ipapi.co/json/')
+                    .then(function(res){ return res.json(); })
+                    .then(function(data){
+                        callback(data && data.country_code === 'CN' && data.country_name === 'China');
+                    })
+                    .catch(function(){ callback(false); });
+            }
+            function switchResourceToGitee() {
+                var giteePrefix = 'https://gitee.com/chancyTech/github-image/raw/main/resources/';
+                document.querySelectorAll('img[src^="../../resources/"]').forEach(function(img){
+                    img.src = img.src.replace(/\/resources\/(img|vid|med|txt)\//, function(m){
+                        return giteePrefix + m.split('/')[2] + '/';
+                    });
+                });
+                document.querySelectorAll('video[src^="../../resources/"]').forEach(function(video){
+                    video.src = video.src.replace(/\/resources\/(img|vid|med|txt)\//, function(m){
+                        return giteePrefix + m.split('/')[2] + '/';
+                    });
+                });
+                document.querySelectorAll('audio[src^="../../resources/"]').forEach(function(audio){
+                    audio.src = audio.src.replace(/\/resources\/(img|vid|med|txt)\//, function(m){
+                        return giteePrefix + m.split('/')[2] + '/';
+                    });
+                });
+            }
+            isChinaMainland(function(isCN){
+                if(isCN) switchResourceToGitee();
+            });
+        })();
     </script>
 </body>
 
