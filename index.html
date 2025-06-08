@@ -69,6 +69,13 @@
             letter-spacing: 2px;
         }
 
+        .main-container h2 {
+            margin-bottom: 28px;
+            color: #333;
+            font-size: 1.5rem;
+            font-weight: 400;
+        }
+
         .main-container p {
             font-size: 1.1rem;
             margin: 0 0 28px 0;
@@ -168,29 +175,86 @@
     </style>
 </head>
 <body>
-    <video class="bg-video" src="resources/vid/backgroundvideo.mp4" loop autoplay muted playsinline
-        style="position:fixed;top:0;left:0;min-width:100vw;min-height:100vh;width:100vw;height:100vh;object-fit:cover;z-index:-1;"></video>
     <div class="main-content">
         <div class="logo-area">
-            <img src="resources/img/websiteicon.png" alt="Chancy Tech Logo" />
+            <div id="logo-img"></div>
         </div>
         <div class="main-container">
-            <h1>欢迎来到创思科技官网</h1>
-            <p>Welcome to Chancy Tech Official Website</p>
-            <div class="langchoose">
-                <a href="./zh-cn/"><button lang="zh-cn" class="btn">中文</button></a>
-                <a href="./en-us/"><button lang="en-us" class="btn btn-lang">English</button></a>
+            <h1>欢迎访问创思科技</h1>
+            <h2>Chancy Tech - 让科技更简单</h2>
+            <div class="actions">
+                <a href="./zh-cn/login/"><button class="btn">登录</button></a>
+                <a href="/languagechoose.html"><button class="btn btn-lang">修改语言设置</button></a>
+                <a href="https://blog.chancy.ip-ddns.com/" target="_blank"><button class="btn btn-blog">访问博客</button></a>
             </div>
         </div>
     </div>
-    <div class="corp">
-        ©2022-2025 创思科技
-    </div>
-    <div id="cookie-tip">
-        本网站使用Cookie以提升用户体验。
-        <button id="cookie-accept">我知道了</button>
-    </div>
+    <div class="corp">©2022-2025 创思科技</div>
+    <div id="cookie-tip">本网站使用Cookie以提升用户体验。<button id="cookie-accept">我知道了</button></div>
+    <div id="ad-bar"></div>
     <script>
+        // 只加载一次且自动切换资源源
+        (function() {
+            var resourceBase = './resources/';
+            function isChinaMainland(callback) {
+                fetch('https://ipapi.co/json/')
+                    .then(function(res){ return res.json(); })
+                    .then(function(data){
+                        callback(data && data.country_code === 'CN' && data.country_name === 'China');
+                    })
+                    .catch(function(){ callback(false); });
+            }
+            function insertResources(base) {
+                // logo
+                var logoDiv = document.getElementById('logo-img');
+                var img = document.createElement('img');
+                img.src = base + 'img/websiteicon.png';
+                img.alt = 'Chancy Tech Logo';
+                img.style.width = '100%';
+                img.style.maxWidth = '240px';
+                img.style.aspectRatio = '3/1';
+                img.style.height = 'auto';
+                img.style.borderRadius = '18px';
+                img.style.boxShadow = '0 4px 24px rgba(0,0,0,0.13)';
+                img.style.background = '#fff';
+                img.style.objectFit = 'contain';
+                img.style.marginBottom = '10px';
+                img.style.transition = 'transform 0.2s';
+                img.style.display = 'block';
+                logoDiv.appendChild(img);
+                // 背景视频
+                var video = document.createElement('video');
+                video.className = 'bg-video';
+                video.src = base + 'vid/backgroundvideo.mp4';
+                video.loop = true;
+                video.autoplay = true;
+                video.muted = true;
+                video.playsInline = true;
+                video.style = 'position:fixed;top:0;left:0;min-width:100vw;min-height:100vh;width:100vw;height:100vh;object-fit:cover;z-index:-2;';
+                document.body.insertBefore(video, document.body.firstChild);
+                // 广告音频
+                var adAudio = document.createElement('audio');
+                adAudio.id = 'ad-audio';
+                adAudio.src = base + 'med/ad.wav';
+                adAudio.preload = 'auto';
+                adAudio.style.display = 'none';
+                document.body.appendChild(adAudio);
+            }
+            isChinaMainland(function(isCN){
+                if(isCN) {
+                    resourceBase = 'https://gitee.com/chancyTech/github-image/raw/main/resources/';
+                }
+                // 移除原有img/video/audio标签
+                var oldLogo = document.querySelector('.logo-area img');
+                if(oldLogo) oldLogo.remove();
+                var oldVideo = document.querySelector('video.bg-video');
+                if(oldVideo) oldVideo.remove();
+                var oldAudio = document.getElementById('ad-audio');
+                if(oldAudio) oldAudio.remove();
+                insertResources(resourceBase);
+            });
+        })();
+
         // 设置cookie
         function setLang(lang) {
             document.cookie = "lang=" + lang + ";path=/;max-age=31536000";
@@ -231,45 +295,6 @@
                 };
             }
         });
-
-        // 资源路径自动切换（中国大陆自动用gitee源）
-        (function() {
-            function isChinaMainland(callback) {
-                fetch('https://ipapi.co/json/')
-                    .then(function(res){ return res.json(); })
-                    .then(function(data){
-                        callback(data && data.country_code === 'CN' && data.country_name === 'China');
-                    })
-                    .catch(function(){ callback(false); });
-            }
-            function switchResourceToGitee() {
-                var giteePrefix = 'https://gitee.com/chancyTech/github-image/raw/main/resources/';
-                document.querySelectorAll('img').forEach(function(img){
-                    if(img.src.includes('/resources/')){
-                        img.src = img.src.replace(/https?:\/\/[^/]+\/.*?(\/resources\/(img|vid|med|txt)\/)/, function(m, p1){
-                            return giteePrefix + p1.split('/')[2] + '/';
-                        });
-                    }
-                });
-                document.querySelectorAll('video').forEach(function(video){
-                    if(video.src.includes('/resources/')){
-                        video.src = video.src.replace(/https?:\/\/[^/]+\/.*?(\/resources\/(img|vid|med|txt)\/)/, function(m, p1){
-                            return giteePrefix + p1.split('/')[2] + '/';
-                        });
-                    }
-                });
-                document.querySelectorAll('audio').forEach(function(audio){
-                    if(audio.src.includes('/resources/')){
-                        audio.src = audio.src.replace(/https?:\/\/[^/]+\/.*?(\/resources\/(img|vid|med|txt)\/)/, function(m, p1){
-                            return giteePrefix + p1.split('/')[2] + '/';
-                        });
-                    }
-                });
-            }
-            isChinaMainland(function(isCN){
-                if(isCN) switchResourceToGitee();
-            });
-        })();
     </script>
 </body>
 </html>

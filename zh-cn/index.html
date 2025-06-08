@@ -198,21 +198,9 @@
     </style>
 </head>
 <body id="main-style">
-    <video class="bg-video" src="../../resources/vid/backgroundvideo.mp4" loop autoplay muted playsinline
-        style="position:fixed;top:0;left:0;min-width:100vw;min-height:100vh;width:100vw;height:100vh;object-fit:cover;z-index:-2;"></video>
-    <div class="bg-overlay"
-        style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:-1;pointer-events:none;background:linear-gradient(120deg, #4f8cff 0%, #38f9d7 100%);opacity:0.82;"></div>
-    <!-- 广告栏 -->
-    <div id="ad-bar">
-        <div id="ad-content"></div>
-        <button id="ad-mute-btn" style="position:absolute;right:16px;top:6px;background:rgba(0,0,0,0.12);border:none;border-radius:50%;width:26px;height:26px;cursor:pointer;z-index:2;display:flex;align-items:center;justify-content:center;">
-            <svg id="ad-mute-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9v6h4l5 5V4L7 9H3z"/><path d="M16.5 12c0-1.77-1-3.29-2.5-4.03v8.06c1.5-.74 2.5-2.26 2.5-4.03zm2.5 0c0 3.04-1.64 5.64-4.5 6.32v2.02c4.01-.91 7-4.49 7-8.34s-2.99-7.43-7-8.34v2.02c2.86.68 4.5 3.28 4.5 6.32z"/></svg>
-        </button>
-        <audio id="ad-audio" src="../../resources/med/ad.wav" preload="auto"></audio>
-    </div>
     <div class="main-content">
         <div class="logo-area">
-            <img src="../../resources/img/websiteicon.png" alt="Chancy Tech Logo" />
+            <div id="logo-img"></div>
         </div>
         <div class="main-container">
             <h1>欢迎访问创思科技</h1>
@@ -224,17 +212,13 @@
             </div>
         </div>
     </div>
-    <div class="corp">
-        ©2022-2025 创思科技
-    </div>
-    <div id="cookie-tip">
-        本网站使用Cookie以提升用户体验。
-        <button id="cookie-accept">我知道了</button>
-    </div>
+    <div class="corp">©2022-2025 创思科技</div>
+    <div id="cookie-tip">本网站使用Cookie以提升用户体验。<button id="cookie-accept">我知道了</button></div>
+    <div id="ad-bar"></div>
     <script>
-        // 资源路径自动切换（中国大陆自动用gitee源）
+        // 只加载一次且自动切换资源源
         (function() {
-            // 判断是否中国大陆IP
+            var resourceBase = '../../resources/';
             function isChinaMainland(callback) {
                 fetch('https://ipapi.co/json/')
                     .then(function(res){ return res.json(); })
@@ -243,36 +227,54 @@
                     })
                     .catch(function(){ callback(false); });
             }
-            // 替换资源路径
-            function switchResourceToGitee() {
-                var giteePrefix = 'https://gitee.com/chancyTech/github-image/raw/main/resources/';
-                // 图片
-                document.querySelectorAll('img').forEach(function(img){
-                    if(img.src.includes('/resources/')){
-                        img.src = img.src.replace(/https?:\/\/[^/]+\/.*?(\/resources\/(img|vid|med|txt)\/)/, function(m, p1){
-                            return giteePrefix + p1.split('/')[2] + '/';
-                        });
-                    }
-                });
-                // 视频
-                document.querySelectorAll('video').forEach(function(video){
-                    if(video.src.includes('/resources/')){
-                        video.src = video.src.replace(/https?:\/\/[^/]+\/.*?(\/resources\/(img|vid|med|txt)\/)/, function(m, p1){
-                            return giteePrefix + p1.split('/')[2] + '/';
-                        });
-                    }
-                });
-                // 音频
-                document.querySelectorAll('audio').forEach(function(audio){
-                    if(audio.src.includes('/resources/')){
-                        audio.src = audio.src.replace(/https?:\/\/[^/]+\/.*?(\/resources\/(img|vid|med|txt)\/)/, function(m, p1){
-                            return giteePrefix + p1.split('/')[2] + '/';
-                        });
-                    }
-                });
+            function insertResources(base) {
+                // logo
+                var logoDiv = document.getElementById('logo-img');
+                var img = document.createElement('img');
+                img.src = base + 'img/websiteicon.png';
+                img.alt = 'Chancy Tech Logo';
+                img.style.width = '100%';
+                img.style.maxWidth = '240px';
+                img.style.aspectRatio = '3/1';
+                img.style.height = 'auto';
+                img.style.borderRadius = '18px';
+                img.style.boxShadow = '0 4px 24px rgba(0,0,0,0.13)';
+                img.style.background = '#fff';
+                img.style.objectFit = 'contain';
+                img.style.marginBottom = '10px';
+                img.style.transition = 'transform 0.2s';
+                img.style.display = 'block';
+                logoDiv.appendChild(img);
+                // 背景视频
+                var video = document.createElement('video');
+                video.className = 'bg-video';
+                video.src = base + 'vid/backgroundvideo.mp4';
+                video.loop = true;
+                video.autoplay = true;
+                video.muted = true;
+                video.playsInline = true;
+                video.style = 'position:fixed;top:0;left:0;min-width:100vw;min-height:100vh;width:100vw;height:100vh;object-fit:cover;z-index:-2;';
+                document.body.insertBefore(video, document.body.firstChild);
+                // 广告音频
+                var adAudio = document.createElement('audio');
+                adAudio.id = 'ad-audio';
+                adAudio.src = base + 'med/ad.wav';
+                adAudio.preload = 'auto';
+                adAudio.style.display = 'none';
+                document.body.appendChild(adAudio);
             }
             isChinaMainland(function(isCN){
-                if(isCN) switchResourceToGitee();
+                if(isCN) {
+                    resourceBase = 'https://gitee.com/chancyTech/github-image/raw/main/resources/';
+                }
+                // 移除原有img/video/audio标签
+                var oldLogo = document.querySelector('.logo-area img');
+                if(oldLogo) oldLogo.remove();
+                var oldVideo = document.querySelector('video.bg-video');
+                if(oldVideo) oldVideo.remove();
+                var oldAudio = document.getElementById('ad-audio');
+                if(oldAudio) oldAudio.remove();
+                insertResources(resourceBase);
             });
         })();
 

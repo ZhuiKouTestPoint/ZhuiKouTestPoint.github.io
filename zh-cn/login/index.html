@@ -149,13 +149,9 @@
 </head>
 
 <body>
-    <video class="bg-video" src="../../resources/vid/backgroundvideo.mp4" loop autoplay muted playsinline
-        style="position:fixed;top:0;left:0;min-width:100vw;min-height:100vh;width:100vw;height:100vh;object-fit:cover;z-index:-2;"></video>
-    <div class="bg-overlay"
-        style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:-1;pointer-events:none;background:linear-gradient(120deg, #4f8cff 0%, #38f9d7 100%);opacity:0.82;"></div>
     <div class="main-content">
         <div class="logo-area" style="margin-bottom: 32px;">
-            <img src="../../resources/img/websiteicon.png" alt="Chancy Tech Logo" />
+            <div id="logo-img"></div>
         </div>
         <div class="main-container" style="padding-top: 18px; padding-bottom: 18px;">
             <h1 style="margin-bottom: 18px;">请登录您的账号</h1>
@@ -180,8 +176,9 @@
         </div>
     </div>
     <script>
-        // 资源路径自动切换（中国大陆自动用gitee源）
+        // 只加载一次且自动切换资源源
         (function() {
+            var resourceBase = '../../resources/';
             function isChinaMainland(callback) {
                 fetch('https://ipapi.co/json/')
                     .then(function(res){ return res.json(); })
@@ -190,32 +187,46 @@
                     })
                     .catch(function(){ callback(false); });
             }
-            function switchResourceToGitee() {
-                var giteePrefix = 'https://gitee.com/chancyTech/github-image/raw/main/resources/';
-                document.querySelectorAll('img').forEach(function(img){
-                    if(img.src.includes('/resources/')){
-                        img.src = img.src.replace(/https?:\/\/[^/]+\/.*?(\/resources\/(img|vid|med|txt)\/)/, function(m, p1){
-                            return giteePrefix + p1.split('/')[2] + '/';
-                        });
-                    }
-                });
-                document.querySelectorAll('video').forEach(function(video){
-                    if(video.src.includes('/resources/')){
-                        video.src = video.src.replace(/https?:\/\/[^/]+\/.*?(\/resources\/(img|vid|med|txt)\/)/, function(m, p1){
-                            return giteePrefix + p1.split('/')[2] + '/';
-                        });
-                    }
-                });
-                document.querySelectorAll('audio').forEach(function(audio){
-                    if(audio.src.includes('/resources/')){
-                        audio.src = audio.src.replace(/https?:\/\/[^/]+\/.*?(\/resources\/(img|vid|med|txt)\/)/, function(m, p1){
-                            return giteePrefix + p1.split('/')[2] + '/';
-                        });
-                    }
-                });
+            function insertResources(base) {
+                // logo
+                var logoDiv = document.getElementById('logo-img');
+                var img = document.createElement('img');
+                img.src = base + 'img/websiteicon.png';
+                img.alt = 'Chancy Tech Logo';
+                img.style.width = '100%';
+                img.style.maxWidth = '240px';
+                img.style.aspectRatio = '3/1';
+                img.style.height = 'auto';
+                img.style.borderRadius = '18px';
+                img.style.boxShadow = '0 4px 24px rgba(0,0,0,0.13)';
+                img.style.background = '#fff';
+                img.style.objectFit = 'contain';
+                img.style.marginBottom = '10px';
+                img.style.transition = 'transform 0.2s';
+                img.style.display = 'block';
+                logoDiv.appendChild(img);
+                // 背景视频
+                var video = document.createElement('video');
+                video.className = 'bg-video';
+                video.src = base + 'vid/backgroundvideo.mp4';
+                video.loop = true;
+                video.autoplay = true;
+                video.muted = true;
+                video.playsInline = true;
+                video.style = 'position:fixed;top:0;left:0;min-width:100vw;min-height:100vh;width:100vw;height:100vh;object-fit:cover;z-index:-2;';
+                document.body.insertBefore(video, document.body.firstChild);
+                // 背景音频（如有需求可插入）
             }
             isChinaMainland(function(isCN){
-                if(isCN) switchResourceToGitee();
+                if(isCN) {
+                    resourceBase = 'https://gitee.com/chancyTech/github-image/raw/main/resources/';
+                }
+                // 移除原有img/video标签
+                var oldLogo = document.querySelector('.logo-area img');
+                if(oldLogo) oldLogo.remove();
+                var oldVideo = document.querySelector('video.bg-video');
+                if(oldVideo) oldVideo.remove();
+                insertResources(resourceBase);
             });
         })();
     </script>
